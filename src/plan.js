@@ -68,10 +68,14 @@ export function initPlan(ctx) {
     drawTray(); if (keepInfo !== true) drawInfo();
     if (box.classList.contains('full')) requestAnimationFrame(() => fit());
   }
+  let trayOpen = false;
   function drawTray() {
     const un = plants().filter(p => !p.pos && SP[p.sp]);
     el('planTray').closest('.plan-card').hidden = !un.length; // Con todas colocadas, la caja «Sin colocar» desaparece
-    el('planTray').innerHTML = un.length ? un.map(p => `<button type="button" class="g-${GCOL[SP[p.sp].g] || 'ali'}" data-place="${esc(p.id)}"><span class="dot">${ab(SP[p.sp])}</span>${esc(p.name)}</button>`).join('')
+    // Con muchas plantas sin colocar, se ven 6 y «Ver N más» para no empujar las fotos muy abajo
+    const vis = trayOpen || un.length <= 7 ? un : un.slice(0, 6);
+    el('planTray').innerHTML = un.length ? vis.map(p => `<button type="button" class="g-${GCOL[SP[p.sp].g] || 'ali'}" data-place="${esc(p.id)}"><span class="dot">${ab(SP[p.sp])}</span>${esc(p.name)}</button>`).join('')
+      + (un.length > 7 ? `<button type="button" class="tray-more" data-traymore>${trayOpen ? 'Ver menos' : `Ver ${un.length - 6} más`}</button>` : '')
       : `<p class="note">Todas tus plantas están colocadas${all.list.length > 1 ? ' en tus huertos' : ' en el plano'}.</p>`;
   }
   function drawInfo() {
@@ -149,6 +153,7 @@ export function initPlan(ctx) {
   el('planBed').addEventListener('click', () => { const {x, y} = free(2, 1); const b = {id: 'b' + Date.now(), k: 'bed', name: nextName('bed', 'Bancal'), x, y, w: 2, h: 1}; pl.beds.push(b); sel = b.id; save(); draw(); });
   el('planPot').addEventListener('click', () => { const {x, y} = free(.5, .5); const b = {id: 'm' + Date.now(), k: 'pot', name: nextName('pot', 'Maceta'), x, y, w: .5}; pl.beds.push(b); sel = b.id; save(); draw(); });
   el('planTray').addEventListener('click', e => {
+    if (e.target.closest('[data-traymore]')) { trayOpen = !trayOpen; drawTray(); return; }
     const t = e.target.closest('[data-place]'); if (!t) return;
     const p = plants().find(x => x.id === t.dataset.place); p.pos = spot(); sel = p.id; ctx.savePlants(); draw();
     ctx.toast(`${p.name} en el plano. Arrástrala a su sitio.`);

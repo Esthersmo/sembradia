@@ -100,24 +100,8 @@
         <button type="button" data-sub="semillas" aria-pressed="false">Semillas</button>
       </div>
       <button class="fab" type="button" id="plFab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span id="plFabTxt">Añadir planta</span></button>
-      <details class="panel addbox" id="addBox" style="margin-bottom:20px">
-        <summary><h2>Añadir planta</h2></summary>
-        <form class="add" id="addForm">
-          <label for="fName">Nombre<input id="fName" placeholder="Tomates del balcón"></label>
-          <label for="fSp">Especie<select id="fSp"></select></label>
-          <label for="fLoc">Ubicación<select id="fLoc"><option value="exterior">Exterior</option><option value="interior">Interior</option></select></label>
-          <label for="fDate">Sembrada o plantada<input id="fDate" type="date"></label>
-          <button class="btn primary" type="submit">Añadir planta</button>
-        </form>
-      </details>
       <details class="panel addbox seedbox" id="seedBox" style="margin-bottom:20px">
         <summary><h2>Mis semillas <small id="seedCount"></small></h2></summary>
-        <form class="add" id="seedForm">
-          <label for="sSp">Especie<select id="sSp"></select></label>
-          <label for="sCad">Caducan<select id="sCad"></select></label>
-          <label for="sNote">Nota<input id="sNote" maxlength="80" placeholder="Variedad, de dónde son…"></label>
-          <button class="btn primary" type="submit">Añadir semillas</button>
-        </form>
         <div id="seedList"></div>
       </details>
       <details class="panel planbox" id="planBox" style="margin-bottom:20px">
@@ -206,6 +190,23 @@
   </div>
 </main>
 <dialog class="ficha" id="ficha" aria-labelledby="fichaTitle"><div class="in" id="fichaIn"></div></dialog>
+<dialog class="ficha hficha adddlg" id="addDlg" aria-labelledby="addT"><div class="in">
+  <div class="hd hf-newhd"><h2 id="addT">Nueva planta</h2><button class="x" type="button" data-aclose aria-label="Cerrar">×</button></div>
+  <form class="hf-form" id="addForm" novalidate>
+    <label class="pf" for="fName">Nombre<input id="fName" placeholder="Tomates del balcón" autocomplete="off"></label>
+    <label class="pf" for="fSp">Especie<select id="fSp"></select></label>
+    <div class="hf-row"><label class="pf" for="fLoc">Ubicación<select id="fLoc"><option value="exterior">Exterior</option><option value="interior">Interior</option></select></label>
+    <label class="pf" for="fDate">Sembrada o plantada<input id="fDate" type="date"></label></div>
+    <div class="hf-acts"><button class="btn" type="button" data-aclose>Cancelar</button><button class="btn primary" type="submit">Añadir planta</button></div>
+  </form></div></dialog>
+<dialog class="ficha hficha adddlg" id="seedDlg" aria-labelledby="seedT"><div class="in">
+  <div class="hd hf-newhd"><h2 id="seedT">Nuevas semillas</h2><button class="x" type="button" data-aclose aria-label="Cerrar">×</button></div>
+  <form class="hf-form" id="seedForm" novalidate>
+    <label class="pf" for="sSp">Especie<select id="sSp"></select></label>
+    <label class="pf" for="sCad">Caducan<select id="sCad"></select></label>
+    <label class="pf" for="sNote">Nota<input id="sNote" maxlength="80" placeholder="Variedad, de dónde son…" autocomplete="off"></label>
+    <div class="hf-acts"><button class="btn" type="button" data-aclose>Cancelar</button><button class="btn primary" type="submit">Añadir semillas</button></div>
+  </form></div></dialog>
 <dialog class="ficha hficha" id="harvDlg" aria-labelledby="hfTitle"><div class="in" id="harvIn"></div></dialog>
 <dialog class="ficha acctdlg" id="acct" aria-labelledby="acctTitle"><div class="in">
   <div class="achd" id="acctHd"></div>

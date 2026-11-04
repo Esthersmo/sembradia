@@ -695,6 +695,9 @@ function seedRows(){
   return state.seeds.filter(x=>SP[x.sp]).map(x=>{const s=SP[x.sp],m=nextSow(s);return {x,s,m,now:m===curM,old:x.cad&&+x.cad<today.getFullYear(),last:x.cad&&+x.cad===today.getFullYear()}})
     .sort((a,b)=>((a.m??99)-curM+12)%12-((b.m??99)-curM+12)%12||a.s.n.localeCompare(b.s.n,'es'));
 }
+// Apartado vacío: una acuarela, una frase y el botón para empezar
+function emptyBox(ilu,t,txt){return `<div class="empty"><img src="${ILUS}${ilu}.webp" alt="" width="120" height="120"><h3>${t}</h3><p>${txt}</p></div>`}
+
 function renderSeeds(){
   const rows=seedRows(),more=state.remMore||(state.remMore={});
   document.getElementById('seedCount').textContent=rows.length?rows.length:'';
@@ -703,7 +706,7 @@ function renderSeeds(){
     <span class="seed-acts">${r.now?`<button class="btn act" type="button" data-sow="${esc(r.x.id)}">Sembrar</button>`:''}<button class="rm" type="button" data-rmseed="${esc(r.x.id)}" aria-label="Quitar las semillas de ${r.s.n}">×</button></span></div>`;
   const now=rows.filter(r=>r.now),later=rows.filter(r=>!r.now);
   const lim=(k,l)=>l.length<=3||more[k]?l.map(row).join('')+(l.length>3?`<button class="btn remmore rm-soon" type="button" data-remmore="${k}">Ver menos</button>`:''):l.slice(0,3).map(row).join('')+`<button class="btn remmore rm-soon" type="button" data-remmore="${k}">Ver ${l.length-3} más</button>`;
-  document.getElementById('seedList').innerHTML=!rows.length?'<p class="note seednote">Apunta los sobres de semillas que tienes y aquí verás cuáles toca sembrar cada mes y cuáles están a punto de caducar.</p>'
+  document.getElementById('seedList').innerHTML=!rows.length?emptyBox('rabano','Aún no hay semillas','Apunta los sobres de semillas que tienes y aquí verás cuáles toca sembrar cada mes y cuáles están a punto de caducar.')
     :(now.length?`<p class="remhead">Toca sembrar en ${MONTHS_L[curM]}</p>${lim('seednow',now)}`:'')+(later.length?`<p class="remhead">Más adelante</p>${lim('seedlater',later)}`:'');
 }
 function compSec(p){
@@ -1245,7 +1248,7 @@ document.getElementById('seedForm').addEventListener('submit',e=>{
   e.preventDefault();
   const x={id:'s'+Date.now(),sp:sSp.value,cad:sCad.value,note:document.getElementById('sNote').value.trim().slice(0,80)};
   state.seeds.push(x);save('hv.seeds',state.seeds);document.getElementById('sNote').value='';sCad.value='';refreshSelects();
-  renderSeeds();renderRem();renderCal();toast(`Semillas de ${SP[x.sp].n.toLowerCase()} apuntadas`);
+  renderSeeds();renderRem();renderCal();document.getElementById('seedDlg').close();toast(`Semillas de ${SP[x.sp].n.toLowerCase()} apuntadas`);
 });
 document.getElementById('seedList').addEventListener('click',e=>{const m=e.target.closest('[data-remmore]');if(!m)return;const k=m.dataset.remmore;state.remMore[k]=!state.remMore[k];renderSeeds()});
 const plLocSel=document.getElementById('plLocSel'),plGroupSel=document.getElementById('plGroupSel');
@@ -1272,7 +1275,7 @@ document.getElementById('addForm').addEventListener('submit',e=>{
   const sown=document.getElementById('fDate').value||iso(today);
   const p={id:'p'+Date.now(),name,sp:fSp.value,loc:document.getElementById('fLoc').value,sown,log:{}};
   dropExamples();state.plants.push(p);save('hv.plants',state.plants);e.target.reset();document.getElementById('fDate').value=iso(today);refreshSelects();
-  state.plGroup='todos';state.plLoc='todas';renderPlants();renderRem();toast(`Planta añadida: ${name}`);document.getElementById("addBox").open=false
+  state.plGroup='todos';state.plLoc='todas';renderPlants();renderRem();document.getElementById('addDlg').close();toast(`Planta añadida: ${name}`)
 });
 // ---------- Fotos del huerto ----------
 // Cada huerto del plano tiene las suyas, guardadas con las fotos de las plantas bajo «huerto:<id del huerto>», y se sincronizan igual
@@ -1336,13 +1339,15 @@ function setPlSub(k){
 }
 document.getElementById('plSub').addEventListener('click',e=>{const b=e.target.closest('[data-sub]');if(b){setPlSub(b.dataset.sub);window.scrollTo(0,0)}});
 plFab.addEventListener('click',()=>{const k=plPanel.dataset.sub;
-  if(k==='plantas'){const a=document.getElementById('addBox');plPanel.classList.add('adding');a.open=true;window.scrollTo(0,0);setTimeout(()=>document.getElementById('fName').focus({preventScroll:true}),50)}
+  if(k==='plantas')openAddDlg('addDlg');
   else if(k==='plano')document.getElementById('planGAdd').click();
   else if(k==='cosechas')openHarvNew();
-  else{plPanel.classList.add('adding');const f=document.getElementById('seedForm');window.scrollTo(0,0);setTimeout(()=>f.querySelector('.csel-btn')?.focus({preventScroll:true}),50)}
+  else openAddDlg('seedDlg');
 });
-document.getElementById('addBox').addEventListener('toggle',e=>{if(!e.target.open)plPanel.classList.remove('adding')});
-document.getElementById('seedForm').addEventListener('submit',()=>setTimeout(()=>{if(plPanel.dataset.sub==='semillas')plPanel.classList.remove('adding')},0));
+// Añadir planta y añadir semillas se abren en una ventana, igual que «Anotar cosecha»
+function openAddDlg(id){const d=document.getElementById(id);try{d.showModal()}catch(e){d.setAttribute('open','')}d.scrollTop=0;
+  setTimeout(()=>(id==='addDlg'?document.getElementById('fName'):d.querySelector('.csel-btn'))?.focus(),50)}
+document.querySelectorAll('.adddlg').forEach(d=>d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-aclose]'))d.close()}));
 try{setPlSub(store.getItem('hv.plsub')||'plantas')}catch(e){setPlSub('plantas')}
 // ---------- Mis cosechas ----------
 // Suma las cosechas anotadas en cada planta y las sueltas (de cultivos que ya no tienes o de años pasados), por años
@@ -1364,7 +1369,7 @@ function renderHarvests(){
     ...state.harvX.filter(x=>SP[x.sp]&&x.d.startsWith(Y)).map(x=>({...x,n:SP[x.sp].n}))].sort((a,b)=>a.d<b.d?1:-1);
   const more=state.harvXMore,shown=more?rows:rows.slice(0,6);
   // Una sola lista: cada cosecha del año elegido, de la más reciente a la más antigua
-  document.getElementById('harvSum').innerHTML=(rows.length?'':`<p class="note">${Y===YEAR?'Anota lo que vas recogiendo con «Anotar cosecha» y aquí verás cada cosecha del año.':`No hay cosechas anotadas en ${Y}.`}</p>`)
+  document.getElementById('harvSum').innerHTML=(rows.length?'':Y===YEAR?emptyBox('tomate','Aún no hay cosechas','Anota lo que vas recogiendo y aquí verás cada cosecha del año, con fotos y cantidades.'):`<p class="note">No hay cosechas anotadas en ${Y}.</p>`)
     +(rows.length?`<ul class="harvl">${shown.map(x=>`<li>${harvRow(x,esc(x.n),fdate(x.d))}</li>`).join('')}</ul>`
       +(rows.length>6?`<button class="btn remmore rm-soon" type="button" id="harvXMore">${more?'Ver menos':`Ver ${rows.length-6} más`}</button>`:'')
       +`<div class="harvshare"><button class="btn" type="button" id="harvShare">Compartir las cosechas de ${Y}</button></div>`:'');
