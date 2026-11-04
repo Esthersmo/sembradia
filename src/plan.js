@@ -85,7 +85,7 @@ export function initPlan(ctx) {
         <label class="pf">Nombre<input id="planName" maxlength="30" value="${esc(b.name)}"></label>
         ${b.k === 'pot' ? `<label class="pf">Tamaño<select id="planSize">${opts}</select></label>`
           : `<div class="pf"><span>Tamaño</span><span class="pf-size"><input id="planBW" inputmode="decimal" value="${num(b.w)}" aria-label="Ancho del bancal en metros"> × <input id="planBH" inputmode="decimal" value="${num(b.h)}" aria-label="Largo del bancal en metros"> m</span></div>`}
-        <p class="sub kids">${kids.length ? 'Tiene ' + kids.map(q => esc(q.name)).join(', ') : 'Vacía. Arrastra una planta dentro.'}</p>
+        <p class="sub kids">${kids.length ? 'Tiene ' + kids.map(q => esc(q.name)).join(', ') : (b.k === 'pot' ? 'Vacía' : 'Vacío') + '. Arrastra una planta dentro.'}</p>
         <div class="row rm"><button class="btn del" type="button" id="planRm">Quitar ${b.k === 'pot' ? 'maceta' : 'bancal'}</button></div>`;
       if (el('planSize')) ctx.enhance?.(el('planSize'));
       return;
@@ -157,13 +157,13 @@ export function initPlan(ctx) {
     const t = e.target.closest('button'); if (!t) return;
     if (t.id === 'planOpen') ctx.openPlant(sel);
     if (t.id === 'planOut') { const p = plants().find(x => x.id === sel); delete p.pos; sel = null; ctx.savePlants(); draw(); }
-    if (t.id === 'planRm') { const b = pl.beds.find(x => x.id === sel); pl.beds = pl.beds.filter(x => x !== b); sel = null; save(); draw(); ctx.toast(`${b.name} quitado del plano`); }
+    if (t.id === 'planRm') { const b = pl.beds.find(x => x.id === sel); pl.beds = pl.beds.filter(x => x !== b); sel = null; save(); draw(); ctx.toast(`Quitado del plano: ${b.name}`); }
   });
   el('planInfo').addEventListener('change', e => {
     if (e.target.id === 'planMove' && e.target.value) {
       const p = plants().find(x => x.id === sel), to = all.list.find(x => x.id === e.target.value);
       all.cur = to.id; pl = to; p.pos = spot(); save(); ctx.savePlants(); drawGardens(); draw();
-      ctx.toast(`${p.name} pasada a ${to.name}`); return;
+      ctx.toast(`Movida a ${to.name}: ${p.name}`); return;
     }
     const b = pl.beds.find(x => x.id === sel); if (!b) return;
     if (e.target.id === 'planName') { b.name = e.target.value.trim().slice(0, 30) || b.name; save(); draw(true); }

@@ -254,15 +254,15 @@ const TIPS={
  guisante:{s:'Siembra directa a 3 cm, en líneas o golpes cada 10 cm.',r:'Moderado; más en floración.',l:'Sol.',t:'Suelto y fresco.',a:'No necesita.',p:'Oídio y pájaros al nacer.',c:'Vaina llena y verde brillante, antes de que se endurezca.',b:'Zanahoria, rábano, lechuga.',e:'Ajo y cebolla.',k:'Ponle una malla o ramas para que trepe.'},
  melon:{s:'Semillero o directa a 2–3 cm, con mucho calor. Separa 1 m.',r:'Abundante al crecer y menos al madurar, para que endulce.',l:'Pleno sol, muchas horas.',t:'Rico, suelto y cálido.',a:'Mucho compost; potasio al formar fruto.',p:'Oídio y pulgón.',c:'Cuando huele dulce y el pedúnculo se agrieta o se suelta.',b:'Maíz, girasol.',e:'Patata y pepino muy cerca.',k:'Pon una teja o tabla bajo cada melón para que no se pudra con la humedad del suelo.'},
  albahaca:{s:'Semillero casi en superficie con calor; trasplanta a 25 cm.',r:'Frecuente, sin encharcar y sin mojar las hojas.',l:'Sol o mucha luz; en interior, junto a una ventana luminosa.',t:'Suelto y fértil.',a:'Abono suave cada mes.',p:'Pulgón y babosas.',c:'Pinza las puntas a menudo.',b:'Tomate y pimiento.',e:'Ruda.',k:'Quita las flores en cuanto salgan: así sigue dando hojas aromáticas.'},
- perejil:{s:'Siembra a 1 cm; tarda en germinar (hasta 3–4 semanas). Remoja la semilla un día antes.',r:'Mantén húmedo.',l:'Sol suave o semisombra.',t:'Fértil y fresco.',a:'Compost suave.',p:'Pocos; a veces pulgón.',c:'Corta los tallos exteriores desde la base.',b:'Tomate, espárrago.',e:'Lechuga muy junta.',k:'Es bianual: el segundo año florece y deja de dar hojas buenas.'},
- cilantro:{s:'Siembra directa a 1 cm (no le gusta el trasplante).',r:'Regular.',l:'Sol suave; con calor fuerte se espiga.',t:'Normal y bien drenado.',a:'Poco.',p:'Pocos.',c:'Hojas jóvenes antes de la floración; luego las semillas secas.',b:'Espinaca, anís.',e:'Hinojo.',k:'Siémbralo cada 3 semanas, porque espiga pronto.'},
+ perejil:{s:'Siembra a 1 cm; tarda en germinar (hasta 3–4 semanas). Remoja la semilla un día antes.',r:'Mantén húmedo.',l:'Sol suave o semisombra.',t:'Fértil y fresco.',a:'Compost suave.',p:'Pocas; a veces pulgón.',c:'Corta los tallos exteriores desde la base.',b:'Tomate, espárrago.',e:'Lechuga muy junta.',k:'Es bianual: el segundo año florece y deja de dar hojas buenas.'},
+ cilantro:{s:'Siembra directa a 1 cm (no le gusta el trasplante).',r:'Regular.',l:'Sol suave; con calor fuerte se espiga.',t:'Normal y bien drenado.',a:'Poco.',p:'Pocas.',c:'Hojas jóvenes antes de la floración; luego las semillas secas.',b:'Espinaca, anís.',e:'Hinojo.',k:'Siémbralo cada 3 semanas, porque espiga pronto.'},
  alfalfa:{s:'Siembra a voleo a 1 cm sobre tierra bien preparada; pasa un rastrillo y apisona.',r:'Poco una vez enraizada; tiene raíces muy profundas.',l:'Sol.',t:'Suelo no ácido y bien drenado.',a:'No necesita nitrógeno; algo de fósforo y potasio.',p:'Pulgón y gorgojo de la alfalfa.',c:'Corta al inicio de la floración, varias veces al año.',b:'Gramíneas como la avena.',e:'Sembrarla donde acabas de tener alfalfa.',k:'Mejora el suelo: deja nitrógeno para el siguiente cultivo.'},
  veza:{s:'Siembra a voleo o en líneas a 3–4 cm, en otoño.',r:'Le basta la lluvia.',l:'Sol.',t:'Tolera suelos pobres.',a:'No necesita.',p:'Pulgón.',c:'Siega en floración para forraje o como abono verde.',b:'Avena o cebada como tutor.',e:'—',k:'Mézclala con avena: la avena la sujeta y el forraje sale más completo.'},
- trebol:{s:'Siembra a voleo muy superficial (0,5 cm).',r:'Regular en verano.',l:'Sol o semisombra.',t:'Fresco.',a:'No necesita.',p:'Pocos.',c:'Siega cuando florezca; rebrota.',b:'Césped y gramíneas.',e:'—',k:'Atrae a los polinizadores y cubre el suelo.'},
+ trebol:{s:'Siembra a voleo muy superficial (0,5 cm).',r:'Regular en verano.',l:'Sol o semisombra.',t:'Fresco.',a:'No necesita.',p:'Pocas.',c:'Siega cuando florezca; rebrota.',b:'Césped y gramíneas.',e:'—',k:'Atrae a los polinizadores y cubre el suelo.'},
  avena:{s:'Siembra a voleo o en líneas a 3 cm, en otoño.',r:'Le basta la lluvia en la mayoría de zonas.',l:'Sol.',t:'Poco exigente.',a:'Algo de nitrógeno al sembrar.',p:'Roya.',c:'Siega en verde para forraje o en grano maduro.',b:'Veza y guisante forrajero.',e:'—',k:'Sirve como abono verde si la entierras antes de que grane.'},
  girasol:{s:'Siembra directa a 2–3 cm, separados 40–60 cm.',r:'Moderado, profundo y espaciado.',l:'Pleno sol: lo sigue durante el día.',t:'Profundo y suelto.',a:'Compost al sembrar.',p:'Pájaros en las semillas y babosas al nacer.',c:'Pipas cuando el dorso de la flor amarillea.',b:'Pepino, maíz, calabaza.',e:'Patata.',k:'Ponle tutor si hace viento; las variedades gigantes pesan mucho.'},
  calendula:{s:'Directa o semillero a 1 cm.',r:'Moderado.',l:'Sol.',t:'Cualquier suelo bien drenado.',a:'Poco.',p:'Pulgón y oídio.',c:'Flores abiertas para infusiones o pomadas.',b:'Tomate y casi todas las hortalizas.',e:'—',k:'Quita las flores secas para que florezca más tiempo. Atrae insectos beneficiosos al huerto.'},
- cosmos:{s:'Directa o semillero a 0,5 cm.',r:'Moderado; aguanta la sequía.',l:'Pleno sol.',t:'Pobre o normal: en suelo muy rico da más hojas y menos flor.',a:'Casi nada.',p:'Pocos.',c:'Florece de verano a otoño.',b:'Hortalizas: atrae polinizadores.',e:'—',k:'Corta las flores pasadas para alargar la floración.'},
+ cosmos:{s:'Directa o semillero a 0,5 cm.',r:'Moderado; aguanta la sequía.',l:'Pleno sol.',t:'Pobre o normal: en suelo muy rico da más hojas y menos flor.',a:'Casi nada.',p:'Pocas.',c:'Florece de verano a otoño.',b:'Hortalizas: atrae polinizadores.',e:'—',k:'Corta las flores pasadas para alargar la floración.'},
  pensamiento:{s:'Semillero a 0,5 cm, en oscuridad y con fresco.',r:'Regular, sin encharcar.',l:'Sol de invierno o semisombra.',t:'Fértil.',a:'Abono para flor cada 2–3 semanas.',p:'Babosas y pulgón.',c:'Florece de otoño a primavera.',b:'Bulbos de primavera.',e:'—',k:'Ideal para dar color en invierno en balcones.'},
  geranio:{s:'Se multiplica mejor por esqueje en primavera o finales de verano.',r:'Cuando la tierra esté seca en superficie; menos en invierno.',l:'Mucho sol.',t:'Sustrato universal con buen drenaje.',a:'Abono para flor cada 15 días en primavera y verano.',p:'Taladro del geranio (mariposa) y pulgón.',c:'Florece de primavera a otoño.',b:'—',e:'—',k:'Quita las flores secas y pódalo a finales de invierno.'},
  potos:{s:'Esqueje en agua: enraíza en 2–3 semanas.',r:'Cuando los primeros centímetros de tierra estén secos.',l:'Luz indirecta; tolera rincones poco luminosos.',t:'Sustrato universal aireado.',a:'Abono verde cada mes en primavera y verano.',p:'Cochinilla y araña roja con ambiente seco.',c:'Planta de hoja, todo el año.',b:'—',e:'—',k:'Si las hojas pierden el jaspeado, necesita más luz.'},
@@ -279,7 +279,7 @@ const TIPS={
  limonero:{s:'En cepellón a inicios de primavera, cuando ya no hiela.',r:'Regular y sin encharcar; menos en invierno.',l:'Pleno sol.',t:'Suelto, algo ácido y muy drenado.',a:'Abono para cítricos de primavera a otoño.',p:'Cochinilla, pulgón y minador de los cítricos.',c:'Casi todo el año, según la variedad.',b:'Caléndula, capuchina.',e:'—',o:'Muy ligera en primavera: quita chupones vigorosos del interior y ramas secas o cruzadas.',k:'Si amarillean las hojas con nervios verdes, le falta hierro: usa abono con quelatos.'},
  naranjo:{s:'En cepellón en primavera, con el injerto por encima del suelo.',r:'Regular; nunca encharcar.',l:'Pleno sol y resguardado del viento frío.',t:'Suelto, ligeramente ácido y drenado.',a:'Abono para cítricos de primavera a otoño.',p:'Cochinilla, pulgón y mosca de la fruta.',c:'En invierno, cuando la naranja tiene buen color y sabor.',b:'Caléndula, capuchina.',e:'—',o:'Ligera tras la cosecha, en primavera: limpia el interior y las ramas bajas que tocan el suelo.',k:'En maceta grande lo puedes resguardar del frío en invierno.'},
  nispero:{o:'Tras la cosecha, a inicios de verano: aclara la copa para que el fruto coja sol.',s:'En cepellón en primavera u otoño templado.',r:'Regular, sobre todo en primavera mientras engorda el fruto.',l:'Sol; tolera algo de sombra.',t:'Cualquiera bien drenado.',a:'Compost en otoño, antes de la floración.',p:'Moteado y mosca de la fruta.',c:'En primavera, cuando el fruto está naranja y algo blando.',b:'Caléndula.',e:'—',k:'Florece en otoño-invierno: una helada fuerte en esa época se lleva la cosecha.'},
- kaki:{o:'A final de invierno: aclara la copa y acorta ramas largas; da fruto en los brotes del año.',s:'Raíz desnuda en invierno, con el injerto por encima del suelo.',r:'Regular en verano; si le falta agua, tira los frutos.',l:'Pleno sol.',t:'Profundo y fresco.',a:'Compost en invierno.',p:'Pocos; mosca de la fruta y cochinilla.',c:'En otoño, con buen color; las variedades astringentes maduran después en casa.',b:'—',e:'—',k:'Sus hojas se ponen rojas y naranjas en otoño: también es muy ornamental.'},
+ kaki:{o:'A final de invierno: aclara la copa y acorta ramas largas; da fruto en los brotes del año.',s:'Raíz desnuda en invierno, con el injerto por encima del suelo.',r:'Regular en verano; si le falta agua, tira los frutos.',l:'Pleno sol.',t:'Profundo y fresco.',a:'Compost en invierno.',p:'Pocas; mosca de la fruta y cochinilla.',c:'En otoño, con buen color; las variedades astringentes maduran después en casa.',b:'—',e:'—',k:'Sus hojas se ponen rojas y naranjas en otoño: también es muy ornamental.'},
  nogal:{o:'Casi no necesita. Si hace falta, a final de verano, porque en invierno y primavera sangra mucha savia.',s:'Raíz desnuda en invierno, con mucho espacio: llega a 15–20 m.',r:'Regular los primeros años.',l:'Pleno sol.',t:'Profundo, fresco y fértil.',a:'Compost cada invierno.',p:'Bacteriosis y carpocapsa.',c:'En otoño, cuando la cáscara verde se abre y la nuez cae.',b:'—',e:'Huertos y frutales cerca: sus raíces frenan a otras plantas.',k:'Plántalo lejos de casas y del huerto; es un árbol para muchos años.'},
  mango:{o:'Tras la cosecha: despunta las ramas para que salgan más brotes y mantenerlo a una altura cómoda.',s:'En cepellón a finales de primavera, en el rincón más cálido y resguardado.',r:'Regular de joven; menos antes de florecer para que dé más flor.',l:'Pleno sol.',t:'Suelto, profundo y muy drenado.',a:'Abono equilibrado en primavera y verano.',p:'Oídio en la flor y antracnosis.',c:'En verano-otoño, cuando cede al tacto y huele dulce.',b:'—',e:'Heladas y viento frío.',k:'Solo prospera en costas sin heladas, como la Axarquía o Canarias.'},
  aguacate:{s:'En cepellón en primavera; plántalo sin romper el cepellón, sus raíces son muy delicadas.',r:'Frecuente y ligero; no soporta el encharcamiento.',l:'Sol con algo de resguardo de joven.',t:'Muy suelto y aireado, nada arcilloso.',a:'Abono rico en nitrógeno en primavera y verano.',p:'Podredumbre de raíz por exceso de agua.',c:'Se cosecha duro y madura fuera del árbol en unos días.',b:'—',e:'Suelos pesados.',o:'Mínima tras la cosecha: solo para controlar la altura y quitar ramas secas.',k:'Para tener fruto fiable, mejor dos variedades que se polinicen (por ejemplo, Hass y Bacon).'},
@@ -361,7 +361,7 @@ const TIPS={
  chirivia:{s:'Siembra directa a 1 cm con semilla fresca del año; aclara a 10 cm.',r:'Regular hasta que nace; luego moderado.',l:'Sol.',t:'Profundo, suelto y sin piedras.',a:'No necesita; el estiércol fresco deforma la raíz.',p:'Mosca de la zanahoria.',c:'Cuando la raíz tenga buen grosor; mejora tras las primeras heladas.',b:'Cebolla, ajo, rábano.',e:'Zanahoria (comparten plagas).',k:'Tarda hasta 3 semanas en nacer: marca la línea con rábanos, que salen antes.'},
  hinojo:{s:'Semillero o directa a 1 cm; aclara a 30 cm.',r:'Regular: la sequía lo hace espigar.',l:'Sol.',t:'Fértil y fresco.',a:'Compost al sembrar.',p:'Pulgón y babosas.',c:'El bulbo cuando tenga el tamaño de un puño.',b:'—',e:'Tomate, judía, cilantro, eneldo.',k:'Aporca el bulbo para que salga más blanco y tierno.'},
  lenteja:{s:'Siembra directa a 3 cm en líneas separadas 30 cm.',r:'Muy poco: es de secano.',l:'Pleno sol.',t:'Suelto y no encharcado.',a:'No necesita: fija nitrógeno.',p:'Gorgojo en la semilla guardada.',c:'Cuando las vainas estén secas y la planta amarilla.',b:'Cereales.',e:'Cebolla y ajo.',k:'Guarda las lentejas unos días en el congelador para matar posibles gorgojos.'},
- cacahuete:{s:'Siembra directa la semilla sin cáscara a 4–5 cm, separadas 25 cm, con la tierra caliente.',r:'Regular en floración; poco al final.',l:'Pleno sol y calor.',t:'Arenoso y muy suelto.',a:'Algo de calcio; no necesita nitrógeno.',p:'Pájaros y ratones en la semilla.',c:'Cuando las hojas amarillean: arranca la planta entera y sécala al sol.',b:'Maíz, patata.',e:'—',k:'Tras la flor, el tallo se entierra y forma el cacahuete bajo tierra: mantén el suelo suelto.'},
+ cacahuete:{s:'Siembra directa las semillas sin cáscara a 4–5 cm, separadas 25 cm, con la tierra caliente.',r:'Regular en floración; poco al final.',l:'Pleno sol y calor.',t:'Arenoso y muy suelto.',a:'Algo de calcio; no necesita nitrógeno.',p:'Pájaros y ratones en la semilla.',c:'Cuando las hojas amarillean: arranca la planta entera y sécala al sol.',b:'Maíz, patata.',e:'—',k:'Tras la flor, el tallo se entierra y forma el cacahuete bajo tierra: mantén el suelo suelto.'},
  okra:{s:'Semillero o directa a 2 cm; remoja la semilla una noche antes.',r:'Regular.',l:'Pleno sol y mucho calor.',t:'Fértil y bien drenado.',a:'Compost al plantar.',p:'Pulgón y hormigas.',c:'Vainas tiernas de 7–10 cm, cada 2–3 días.',b:'Pimiento, berenjena, pepino.',e:'—',k:'Si dejas crecer las vainas se vuelven duras y la planta deja de producir.'},
  chalota:{s:'Planta los bulbillos a ras de suelo en otoño o final de invierno, a 20 cm.',r:'Poco; nada al final.',l:'Sol.',t:'Suelto y bien drenado.',a:'No necesita.',p:'Mildiu y mosca de la cebolla.',c:'Cuando las hojas se doblen y amarilleen.',b:'Zanahoria, lechuga, remolacha.',e:'Guisante, judía, haba.',k:'Cada bulbillo da un racimo de 6–10 chalotas.'},
  pakchoi:{s:'Semillero o directa a 1 cm; aclara a 20 cm.',r:'Frecuente.',l:'Sol suave o semisombra.',t:'Fértil y fresco.',a:'Compost al sembrar.',p:'Pulguilla, babosas y oruga de la col.',c:'Entera o hoja a hoja a las 6–7 semanas.',b:'Cebolla, apio, lechuga.',e:'Fresa.',k:'Con calor espiga enseguida: siémbralo en otoño o primavera temprana.'},
@@ -398,14 +398,17 @@ const TIPS={
 
 const INDOOR=['potos','monstera','sansevieria','dracaena','cinta','orquidea','calathea','zamioculca','plectranto','gollum','jade','pilea'];
 const ACTIONS={riego:'Riego',abono:'Abonado',sustrato:'Sustrato',poda:'Poda'};
+const ACT_N={riego:'riego',abono:'abonado',sustrato:'cambio de sustrato',poda:'poda'};
 const VERB={riego:'Regar',abono:'Abonar',sustrato:'Cambiar sustrato',poda:'Podar'};
 // Intervalos largos en años (poda, sustrato)
-const ivTxt=d=>d>=365&&d%365===0?(d===365?'cada año':`cada ${d/365} años`):`cada ${d} días`;
+const ivTxt=d=>d>=365&&d%365===0?(d===365?'cada año':`cada ${d/365} años`):d===1?'cada día':`cada ${d} días`;
 
 const DAY=864e5;
 const today=new Date();today.setHours(0,0,0,0);
 const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
-const ago=n=>iso(new Date(today.getTime()-n*DAY));
+// Sumar días de calendario (no horas): así el cambio de hora no adelanta ni atrasa un día
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const ago=n=>iso(addDays(today,-n));
 const parse=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
 const curM=today.getMonth();
 
@@ -463,10 +466,10 @@ const REL=(()=>{
 })();
 // Rotación en cuatro grupos: tras las exigentes de fruto, leguminosas; tras ellas, hoja; tras la hoja, raíz y bulbo; y vuelta a empezar
 const ROT={
-  fruto:{n:'de fruto y muy exigente',next:'legum',why:'leguminosas, que devuelven a la tierra el nitrógeno que ha gastado',ids:['tomate','pimiento','berenjena','patata','calabacin','pepino','melon','sandia','calabaza','maiz','boniato','okra']},
-  legum:{n:'leguminosa y deja la tierra rica en nitrógeno',next:'hoja',why:'plantas de hoja y coles, que aprovechan ese nitrógeno',ids:['judia','haba','garbanzo','guisante','lenteja','cacahuete']},
-  hoja:{n:'de hoja',next:'raiz',why:'raíces y bulbos, que piden menos abono',ids:['lechuga','espinaca','acelga','col','brocoli','coliflor','rucula','apio','escarola','canonigos','kale','colbruselas','lombarda','pakchoi','hinojo']},
-  raiz:{n:'de raíz o bulbo',next:'fruto',why:'plantas de fruto, añadiendo antes compost',ids:['zanahoria','rabano','remolacha','cebolla','ajo','puerro','nabo','nabomesa','chirivia','chalota']},
+  fruto:{n:'un cultivo muy exigente (de fruto o tubérculo)',next:'legum',why:'leguminosas, que devuelven a la tierra el nitrógeno que ha gastado',ids:['tomate','pimiento','berenjena','patata','calabacin','pepino','melon','sandia','calabaza','maiz','boniato','okra']},
+  legum:{n:'una leguminosa y deja la tierra rica en nitrógeno',next:'hoja',why:'plantas de hoja y coles, que aprovechan ese nitrógeno',ids:['judia','haba','garbanzo','guisante','lenteja','cacahuete']},
+  hoja:{n:'un cultivo de hoja',next:'raiz',why:'raíces y bulbos, que piden menos abono',ids:['lechuga','espinaca','acelga','col','brocoli','coliflor','rucula','apio','escarola','canonigos','kale','colbruselas','lombarda','pakchoi','hinojo']},
+  raiz:{n:'un cultivo de raíz o bulbo',next:'fruto',why:'plantas de fruto, añadiendo antes compost',ids:['zanahoria','rabano','remolacha','cebolla','ajo','puerro','nabo','nabomesa','chirivia','chalota']},
 };
 const FAM=Object.fromEntries(Object.entries(ROT).flatMap(([f,v])=>v.ids.map(id=>[id,f])));
 // Qué sembrar en el hueco: las del grupo siguiente que se pueden sembrar este mes o el que viene
@@ -512,8 +515,8 @@ function directa(s,z,m){
 // Las heladas sí descartan; la falta de frío no: hay variedades de pocas horas de frío
 function treeFits(s,z){const w=Math.min(...z.t);return !(s.frost&&w<s.frost)}
 function lowChill(s,z){return !!(s.chill&&Math.min(...z.t)>s.chill)}
-function chillTxt(s){return `Tu invierno es suave para el ${s.n.toLowerCase()} común: elige variedades de pocas horas de frío${s.lc?`, como ${s.lc}`:''}.`}
-function treeWhy(s,z){const w=Math.min(...z.t);return s.frost&&w<s.frost?'Los inviernos de tu zona son demasiado fríos: si quieres tenerlo, mejor en maceta grande y resguardado.':''}
+function chillTxt(s){return `Tu invierno es suave para las variedades comunes de ${s.n.toLowerCase()}: elige variedades de pocas horas de frío${s.lc?`, como ${s.lc}`:''}.`}
+function treeWhy(s,z){const w=Math.min(...z.t);return s.frost&&w<s.frost?'Los inviernos de tu zona son demasiado fríos: mejor en maceta grande y a resguardo.':''}
 function ranges(months){
   if(!months.length) return 'ningún mes';
   const set=new Set(months);
@@ -526,6 +529,16 @@ function ranges(months){
     else if(run){out.push(run[0]===run[1]?MONTHS_L[run[0]]:MONTHS_L[run[0]]+' a '+MONTHS_L[run[1]]);run=null}}
   return out.join(', ');
 }
+// Meses como frase: «de enero a marzo y en mayo»
+function when(months){
+  const set=new Set(months);if(!set.size)return 'ningún mes';if(set.size===12)return 'todo el año';
+  const gap=[...Array(12).keys()].find(m=>!set.has(m));const out=[];let run=null;
+  for(let k=1;k<=12;k++){const m=(gap+k)%12;
+    if(set.has(m)){run=run?[run[0],m]:[m,m]}
+    else if(run){out.push(run[0]===run[1]?`en ${MONTHS_L[run[0]]}`:`de ${MONTHS_L[run[0]]} a ${MONTHS_L[run[1]]}`);run=null}}
+  return out.length>1?out.slice(0,-1).join(', ')+' y '+out[out.length-1]:out[0];
+}
+const cap1=t=>t[0].toUpperCase()+t.slice(1);
 function renderCal(){
   const z=zoneNow();
   document.getElementById('calLede').innerHTML=`<span>Toca un cultivo para abrir su ficha.</span>`;
@@ -596,22 +609,22 @@ function renderFicha(){
   const dir=[],sem=[],pot=[],dark=[];
   for(let m=0;m<12;m++){const st=cellState(s,z,m);if(st==='directa')dir.push(m);if(st==='semillero')sem.push(m);if(st==='maceta')pot.push(m);if(st&&!s.tree&&z.sun[m]<s.sun)dark.push(m)}
   const nowSt=cellState(s,z,curM);
-  const nowTxt=s.tree&&pot.length?(nowSt?`Tus inviernos son demasiado fríos para tenerlo fuera, pero este mes (${MONTHS_L[curM]}) es buen momento para plantarlo en maceta y resguardarlo en invierno.`:`Tus inviernos son demasiado fríos para tenerlo fuera. En maceta resguardada, mejor plantarlo en ${ranges(pot).toLowerCase().replace(/, ([^,]*)$/,' y $1')}.`)
-    :s.tree?(nowSt?`Este mes (${MONTHS_L[curM]}) es buen momento para plantarlo.`:treeWhy(s,z)||`Este mes (${MONTHS_L[curM]}) no es buen momento para plantarlo en tu zona.`)
-    :nowSt==='directa'?`Este mes (${MONTHS_L[curM]}) puedes sembrarlo directamente fuera.`:nowSt==='semillero'?`Este mes (${MONTHS_L[curM]}) toca semillero protegido.`:`Este mes (${MONTHS_L[curM]}) no es buen momento en tu zona.`;
+  const nowTxt=s.tree&&pot.length?(nowSt?`Tus inviernos son demasiado fríos para tenerlo fuera, pero este mes (${MONTHS_L[curM]}) es buen momento para plantar en maceta y resguardar en invierno.`:`Tus inviernos son demasiado fríos para tenerlo fuera. En maceta resguardada, mejor plantar ${when(pot)}.`)
+    :s.tree?(nowSt?`Este mes (${MONTHS_L[curM]}) es buen momento para plantar.`:treeWhy(s,z)||`Este mes (${MONTHS_L[curM]}) no es buen momento para plantar en tu zona.`)
+    :nowSt==='directa'?`Este mes (${MONTHS_L[curM]}) se puede sembrar directamente fuera.`:nowSt==='semillero'?`Este mes (${MONTHS_L[curM]}) toca semillero protegido.`:`Este mes (${MONTHS_L[curM]}) no es buen momento en tu zona.`;
   const strip=MONTHS.map((m,i)=>{const st=cellState(s,z,i);const luz=st&&!s.tree&&z.sun[i]<s.sun?' luz':'';return `<div><span class="cell ${st}${luz}" title="${MONTHS_L[i]}"></span>${i===curM?`<b>${m[0]}</b>`:m[0]}</div>`}).join('');
   const c=s.care;const mine=state.plants.filter(p=>p.sp===s.id);
   if(state.quick){
     // Ficha rápida desde «Qué sembrar»: meses, temporada del mes elegido, consejo clave y dos acciones
     const cm=state.qFrom?curM:state.calM??curM,st=cellState(s,z,cm),M=MONTHS_L[cm][0].toUpperCase()+MONTHS_L[cm].slice(1),k=TIPS[s.id]?.k;
-    const qTxt=st==='directa'?`${M} es buen momento para ${s.tree?'plantarlo':'sembrarla directamente fuera'}.`:st==='semillero'?`En ${MONTHS_L[cm]} toca semillero protegido.`:st==='maceta'?`En ${MONTHS_L[cm]} se puede plantar en maceta y resguardarlo en invierno.`:`En ${MONTHS_L[cm]} no toca en tu zona.`;
+    const qTxt=st==='directa'?`${M} es buen momento para ${s.tree?'plantar':'la siembra directa fuera'}.`:st==='semillero'?`En ${MONTHS_L[cm]} toca semillero protegido.`:st==='maceta'?`En ${MONTHS_L[cm]} se puede plantar en maceta y resguardar en invierno.`:`En ${MONTHS_L[cm]} no toca en tu zona.`;
     const sub=[GROUPS[s.g],state.seeds.some(x=>x.sp===s.id)?'tienes semillas':'',mine.some(p=>!p.ej)?'en tu huerto':''].filter(Boolean).join(' · ');
     const back=state.plants.find(p=>p.id===state.qFrom);
     document.getElementById('fichaIn').innerHTML=`${back?`<button class="qback" type="button" id="fichaBack">‹ Volver a ${esc(back.name)}</button>`:''}
    <div class="hd"><div><h2 id="fichaTitle">${s.n}</h2><span class="sp">${sub}</span></div>
      <button class="x" id="fichaClose" aria-label="Cerrar ficha">×</button></div>
    <div class="tmonths" role="img" aria-label="Meses de siembra en tu zona">${MONTHS.map((l,m)=>{const x=cellState(s,z,m);return `<i class="${x==='directa'?'d':x?'s':''}${m===cm?' cur':''}">${l[0]}</i>`}).join('')}</div>
-   <p class="qnow">${qTxt} Riego cada ${interval({sp:s.id,loc:INDOOR.includes(s.id)?'interior':'exterior'},'riego')} días.</p>
+   <p class="qnow">${qTxt} Riego ${ivTxt(interval({sp:s.id,loc:INDOOR.includes(s.id)?'interior':'exterior'},'riego'))}.</p>
    ${k?`<div class="tkey"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><div><b>Consejo clave</b>${k}</div></div>`:''}
    <div class="qacts"><button class="btn" type="button" id="fichaTips">Ver consejos</button><button class="btn primary" id="fichaAdd">+ Añadir a mis plantas</button></div>`;
     document.getElementById('ficha').classList.add('quick');return;
@@ -624,21 +637,21 @@ function renderFicha(){
    <div class="strip" aria-label="Meses de siembra">${strip}</div>
    <div class="facts">
      ${s.tree?`<div class="fact"><span>${pot.length?'En maceta resguardada':'Plantación'}</span><strong>${cap(ranges(pot.length?pot:dir))}</strong></div>
-     <div class="fact"><span>Cómo plantarlo</span><strong>${s.dec?'A raíz desnuda en invierno, o en cepellón':'En cepellón (maceta)'}</strong></div>`
+     <div class="fact"><span>Cómo plantar</span><strong>${s.dec?'A raíz desnuda en invierno, o en cepellón':'En cepellón (maceta)'}</strong></div>`
      :`<div class="fact"><span>Siembra directa</span><strong>${cap(ranges(dir))}</strong></div>
      <div class="fact"><span>Semillero protegido</span><strong>${s.seed?cap(ranges(sem)):'No conviene trasplantar'}</strong></div>`}
      <div class="fact"><span>Temperatura media</span><strong>${s.tMin} a ${s.tMax} °C</strong></div>
      <div class="fact"><span>Sol</span><strong>${s.sun} h al día o más</strong></div>
-     <div class="fact"><span>${s.tree?'Primera cosecha':s.g==='ornamental'?'Floración':'Cosecha'}</span><strong>${s.tree?`A los ${s.yrs} años aprox.`:(s.days>=365?(s.days<548?`Al año aprox.`:`A los ${Math.round(s.days/365)} años aprox.`):`A los ${s.days} días aprox.`)}</strong></div>
-     <div class="fact"><span>Riego</span><strong>Cada ${c.riego} días de base</strong></div>
-     ${c.abono?`<div class="fact"><span>Abono</span><strong>Cada ${c.abono} días</strong></div>`:''}
+     <div class="fact"><span>${s.tree?'Primera cosecha':s.g==='ornamental'?'Floración':'Cosecha'}</span><strong>${s.tree?(s.yrs===1?'Al año aprox.':`A los ${s.yrs} años aprox.`):(s.days>=365?(s.days<548?`Al año aprox.`:`A los ${Math.round(s.days/365)} años aprox.`):`A los ${s.days} días aprox.`)}</strong></div>
+     <div class="fact"><span>Riego</span><strong>${cap1(ivTxt(c.riego))} de base</strong></div>
+     ${c.abono?`<div class="fact"><span>Abono</span><strong>${cap1(ivTxt(c.abono))}</strong></div>`:''}
      ${s.pm?`<div class="fact"><span>Poda</span><strong>${s.pm}</strong></div>`:''}
      ${s.chill?`<div class="fact"><span>Frío invernal</span><strong>${lowChill(s,z)?'Elige variedades de bajo frío':'Lo necesita para dar fruto'}</strong></div>`:''}
      ${s.frost?`<div class="fact"><span>Heladas</span><strong>${s.frost>=9?'Las lleva mal':'Aguanta las suaves'}</strong></div>`:''}
-     ${c.sustrato?`<div class="fact"><span>Sustrato en maceta</span><strong>Renovar cada ${Math.round(c.sustrato/30)} meses</strong></div>`:''}
+     ${c.sustrato?`<div class="fact"><span>Sustrato en maceta</span><strong>Renovar ${c.sustrato>=365?ivTxt(Math.round(c.sustrato/365)*365):`cada ${Math.round(c.sustrato/30)} meses`}</strong></div>`:''}
    </div>
    ${lowChill(s,z)?`<p class="tip chill">${chillTxt(s)}</p>`:''}
-   ${dark.length?`<p class="tip">En ${ranges(dark).toLowerCase()} hay menos horas de sol de las que necesita (${s.sun} h al día), así que plántalo en el rincón más soleado que tengas.</p>`:''}
+   ${dark.length?`<p class="tip">${cap1(when(dark))} hay menos horas de sol de las que necesita (${s.sun} h al día): mejor en el rincón más soleado que tengas.</p>`:''}
    <p class="tip">El riego se ajusta solo al calor del mes en tu zona.</p>
    ${mine.length?`<div><p class="tip" style="margin-bottom:6px">Tus plantas de ${s.n.toLowerCase()}:</p><div class="mine">${mine.map(p=>`<button class="btn" data-open="${esc(p.id)}">${esc(p.name)} · fotos (${(photos[p.id]||[]).length})</button>`).join('')}</div></div>`:''}
    <button class="btn primary" id="fichaAdd">Añadir a mis plantas</button>`;
@@ -687,7 +700,7 @@ function renderSeeds(){
   const rows=seedRows(),more=state.remMore||(state.remMore={});
   document.getElementById('seedCount').textContent=rows.length?rows.length:'';
   const row=r=>`<div class="seed${r.now?' now':''}"><div><p><strong>${r.s.n}</strong>${r.x.note?` · ${esc(r.x.note)}`:''}</p>
-    <p class="sub">${r.now?`<span class="tag">Toca sembrar</span>`:r.m!=null?`Desde ${MONTHS_L[r.m]}`:'No toca sembrarla en tu zona'}${r.old?` · <span class="cad old">caducaron en ${esc(r.x.cad)}: pueden germinar peor</span>`:r.last?` · <span class="cad">caducan este año</span>`:r.x.cad?` · caducan en ${esc(r.x.cad)}`:''}</p></div>
+    <p class="sub">${r.now?`<span class="tag">Toca sembrar</span>`:r.m!=null?`Desde ${MONTHS_L[r.m]}`:'No toca sembrar en tu zona'}${r.old?` · <span class="cad old">caducaron en ${esc(r.x.cad)}: pueden germinar peor</span>`:r.last?` · <span class="cad">caducan este año</span>`:r.x.cad?` · caducan en ${esc(r.x.cad)}`:''}</p></div>
     <span class="seed-acts">${r.now?`<button class="btn act" type="button" data-sow="${esc(r.x.id)}">Sembrar</button>`:''}<button class="rm" type="button" data-rmseed="${esc(r.x.id)}" aria-label="Quitar las semillas de ${r.s.n}">×</button></span></div>`;
   const now=rows.filter(r=>r.now),later=rows.filter(r=>!r.now);
   const lim=(k,l)=>l.length<=3||more[k]?l.map(row).join('')+(l.length>3?`<button class="btn remmore rm-soon" type="button" data-remmore="${k}">Ver menos</button>`:''):l.slice(0,3).map(row).join('')+`<button class="btn remmore rm-soon" type="button" data-remmore="${k}">Ver ${l.length-3} más</button>`;
@@ -704,7 +717,7 @@ function compSec(p){
   return `<section class="pf-sec cmpsec"><div class="pf-sh"><h3>Compañeras</h3></div>
     ${r.good.size?`<div class="cmprow good">${head('Se lleva bien con','<path d="M5 12.5l4.5 4.5L19 7"/>',r.good.size)}<div class="cmps">${sort(r.good).map(id=>chip(id,0)).join('')}</div></div>`:''}
     ${r.bad.size?`<div class="cmprow bad">${head('Mejor lejos de','<path d="M6 6l12 12M18 6L6 18"/>',r.bad.size)}<div class="cmps">${sort(r.bad).map(id=>chip(id,1)).join('')}</div></div>`:''}
-    ${rot?`<div class="cmprow rot">${head('Cuando acabe, en su sitio','<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/>')}<p class="cmpt">${SP[p.sp].n} es ${ROT[rot.f].n}: después siembra ${ROT[rot.f].why}.</p>${rot.now.length?`<p class="cmpl2">Ahora en tu zona</p><div class="cmps">${rot.now.map(id=>`<button type="button" class="cmp" data-cmp="${id}">${SP[id].n}</button>`).join('')}</div>`:''}</div>`:''}
+    ${rot?`<div class="cmprow rot">${head('Cuando acabe, en su sitio','<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/>')}<p class="cmpt">Es ${ROT[rot.f].n}: después siembra ${ROT[rot.f].why}.</p>${rot.now.length?`<p class="cmpl2">Ahora en tu zona</p><div class="cmps">${rot.now.map(id=>`<button type="button" class="cmp" data-cmp="${id}">${SP[id].n}</button>`).join('')}</div>`:''}</div>`:''}
   </section>`;
 }
 function renderPlantFicha(){
@@ -724,10 +737,10 @@ function renderPlantFicha(){
          ${state.photoEdit?`<button class="rm" data-rmphoto="${esc(x.id)}" aria-label="Borrar foto del día ${daysSince(p,x.date)}">×</button>
          <figcaption>Día ${daysSince(p,x.date)}<input type="date" class="phDate" data-pid="${esc(x.id)}" value="${esc(x.date)}" min="${esc(p.sown)}" max="${iso(today)}" aria-label="Fecha de la foto del día ${daysSince(p,x.date)}"></figcaption>`
          :`<figcaption>Día ${daysSince(p,x.date)}<small>${fd(x.date)}</small></figcaption>`}</figure>`).join('')}</div>
-       <p class="tip">${ph.length>1&&ph[0].date!==ph[ph.length-1].date?`De la primera a la última foto han pasado ${daysSince(p,ph[ph.length-1].date)-daysSince(p,ph[0].date)} días.`:'Añade otra foto más adelante para ver cómo crece.'}</p>`
+       <p class="tip">${ph.length>1&&ph[0].date!==ph[ph.length-1].date?`De la primera a la última foto ${(n=>n===1?'ha pasado 1 día':`han pasado ${n} días`)(daysSince(p,ph[ph.length-1].date)-daysSince(p,ph[0].date))}.`:'Añade otra foto más adelante para ver cómo crece.'}</p>`
      :`<div class="empty-ph">Aún no hay fotos. Añade la primera y vuelve a hacer una cada pocas semanas para ver cómo crece.</div>`}
    </section>`;
-  const age2=age===0?'Hoy':age>=365?`${(age/365).toFixed(1).replace('.0','').replace('.',',')} años`:`${age} días`;
+  const age2=age===0?'Hoy':age>=365?(y=>`${y} ${y==='1'?'año':'años'}`)((age/365).toFixed(1).replace('.0','').replace('.',',')):(age===1?'1 día':`${age} días`);
   if(!state.editing)return renderPlantFichaM(p,s,age2,photoSec);
   document.getElementById('fichaIn').innerHTML=`
    <div class="pf-hd">
@@ -737,7 +750,7 @@ function renderPlantFicha(){
      <button class="x" id="fichaClose" aria-label="Cerrar ficha">×</button>
    </div>
    <div class="pf-row">
-       <dl class="pf-meta"><div><dt>Ubicación</dt><dd>${p.loc==='interior'?'Interior':'Exterior'}</dd></div><div><dt>Especie</dt><dd>${s.n}</dd></div><div><dt>${s.tree?'Plantación':'Siembra'}</dt><dd>${fdate(p.sown)}</dd></div><div><dt>Edad</dt><dd>${age===0?'Hoy':age>=365?`${(age/365).toFixed(1).replace('.0','').replace('.',',')} años`:`${age} días`}</dd></div></dl>
+       <dl class="pf-meta"><div><dt>Ubicación</dt><dd>${p.loc==='interior'?'Interior':'Exterior'}</dd></div><div><dt>Especie</dt><dd>${s.n}</dd></div><div><dt>${s.tree?'Plantación':'Siembra'}</dt><dd>${fdate(p.sown)}</dd></div><div><dt>Edad</dt><dd>${age===0?'Hoy':age>=365?(y=>`${y} ${y==='1'?'año':'años'}`)((age/365).toFixed(1).replace('.0','').replace('.',',')):(age===1?'1 día':`${age} días`)}</dd></div></dl>
        ${state.editing?'':`<span class="pf-acts"><button class="btn" id="sharePlantBtn">Compartir</button><button class="btn" id="editToggle" aria-expanded="false">Editar datos</button></span>`}
    </div>
    ${state.editing?'':harvSec(p)}
@@ -854,7 +867,7 @@ function dues(p){
     let last=p.log&&p.log[a]?parse(p.log[a]):parse(p.sown),rain=null,soon=null;
     // Fuera, la lluvia de verdad cuenta como riego; y si va a llover pronto se avisa de que se puede esperar
     if(a==='riego'&&p.loc==='exterior'&&wx){rain=rainSince(wx,iso(last),iso(today));if(rain)last=parse(rain.date)}
-    const due=new Date(last.getTime()+iv*DAY),left=Math.round((due-today)/DAY);
+    const due=addDays(last,iv),left=Math.round((due-today)/DAY);
     if(a==='riego'&&p.loc==='exterior'&&wx&&left<=1)soon=rainSoon(wx,iso(today));
     out.push({p,a,iv,last,due,left,rain,soon});
   }
@@ -902,9 +915,9 @@ function careChanged(){save('hv.plants',state.plants);renderPlants();renderRem()
 // Deshacer una tarea marcada hoy: vuelve la fecha que tenía antes
 function undoCare(p,k){if(!p||p.log?.[k]!==iso(today))return;
   // Si no se guardó la fecha anterior (marcada antes de existir «Deshacer» o en otro dispositivo), vuelve a tocar hoy
-  const prev=p.logPrev&&k in p.logPrev?p.logPrev[k]:iso(new Date(today.getTime()-interval(p,k)*DAY));
+  const prev=p.logPrev&&k in p.logPrev?p.logPrev[k]:iso(addDays(today,-interval(p,k)));
   if(prev)p.log[k]=prev;else delete p.log[k];if(p.logPrev){delete p.logPrev[k];if(!Object.keys(p.logPrev).length)delete p.logPrev}
-  careChanged();toast(`${ACTIONS[k]} deshecho: ${p.name}`)}
+  careChanged();toast(`Deshecho: ${ACT_N[k]} de ${p.name}`)}
 // Iconos de cada tarea en Avisos
 const REM_IC={riego:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',abono:'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V5h6v3"/>',sustrato:'<path d="M5 10h14l-2 10H7z"/><path d="M4 10h16"/><path d="M12 10V6m0 0c0-2 2-3 4-3 0 2-2 3-4 3zm0 0c0-2-2-3-4-3 0 2 2 3 4 3"/>',poda:'<circle cx="6" cy="7" r="2.5"/><circle cx="6" cy="17" r="2.5"/><path d="M8 8.5L20 17M8 15.5L20 7"/>',semilla:'<path d="M12 21c0-6 0-9 0-11"/><path d="M12 12c-4 0-7-3-7-7 4 0 7 3 7 7zm0-2c0-3 2-6 6-6 0 4-3 6-6 6"/>'};
 const remIc=k=>`<span class="ric"><svg viewBox="0 0 24 24" aria-hidden="true">${REM_IC[k]}</svg></span>`;
@@ -964,7 +977,7 @@ function drawWx(){
   const alerts=[];
   const fr=coldest(wx,t);
   if(fr&&fr.min<=FROST_C){const ps=state.plants.filter(tender).map(p=>esc(p.name));
-    alerts.push(['frost',`<strong>Riesgo de helada ${dayName(fr.date)}</strong> (mínima de ${Math.round(fr.min)}&nbsp;°C).`+(ps.length?` Protege por la noche ${ps.length>4?`${ps.slice(0,4).join(', ')} y ${ps.length-4} más`:ps.length>1?`${ps.slice(0,-1).join(', ')} y ${ps[ps.length-1]}`:ps[0]}: cúbrelas con manta térmica o mete las macetas dentro.`:' Las plantas de verano y los frutales tropicales lo pasan mal.')])}
+    alerts.push(['frost',`<strong>Riesgo de helada ${dayName(fr.date)}</strong> (mínima de ${Math.round(fr.min)}&nbsp;°C).`+(ps.length?` Protege por la noche ${ps.length>4?`${ps.slice(0,4).join(', ')} y ${ps.length-4} más`:ps.length>1?`${ps.slice(0,-1).join(', ')} y ${ps[ps.length-1]}`:ps[0]}: ${ps.length>1?'cúbrelas':'cúbrela'} con manta térmica o mete las macetas dentro.`:' Las plantas de verano y los frutales tropicales lo pasan mal.')])}
   const hot=hottest(wx,t);
   if(hot&&hot.max>=HEAT_C)alerts.push(['heat',`<strong>Calor fuerte ${dayName(hot.date)}</strong> (máxima de ${Math.round(hot.max)}&nbsp;°C). Riega a primera hora o al atardecer y vigila las macetas, que se secan antes. Los riegos de fuera se adelantan.`]);
   const wet=state.plants.filter(p=>p.loc==='exterior').flatMap(dues).filter(x=>x.rain);
@@ -991,20 +1004,20 @@ function renderTips(){
   document.getElementById('tipMine').innerHTML=mine.map(id=>`<button class="chip" data-tip="${esc(id)}" aria-pressed="${id===s.id}">${SP[id].n}</button>`).join('');
   document.getElementById('tipMine').hidden=!mine.length;
   // Temporada: frase tranquila y barra de los 12 meses
-  const st=s.pot?null:cellState(s,z,curM),sow=s.tree?'plantarlo':'sembrarla';
+  const st=s.pot?null:cellState(s,z,curM),sow=s.tree?'plantar':'sembrar';
   const ms=s.pot||(s.tree&&!treeFits(s,z))?null:MONTHS.map((_,m)=>cellState(s,z,m));
   const nx=ms&&!st?[1,2,3,4,5,6,7,8,9,10,11].map(i=>(curM+i)%12).find(m=>ms[m]):null;
   const nxTxt=nx!=null?` Próxima ${s.tree?'plantación':'siembra'}: ${ms[nx]==='semillero'?'semillero en ':''}${MONTHS_L[nx]}.`:'';
   const now=s.pot?`Planta de maceta: se cuida todo el año.`
-    :s.tree&&!treeFits(s,z)?`Tus inviernos son demasiado fríos para tenerlo fuera. ${st?`En ${MONTHS_L[curM]} es <b class="ok">buen momento</b> para plantarlo en maceta y resguardarlo en invierno.`:`En maceta resguardada, mejor plantarlo en ${ranges(potMonths(s,z)).toLowerCase().replace(/, ([^,]*)$/,' y $1')}.`}`
-    :st==='directa'?`En ${MONTHS_L[curM]} <b class="ok">es buen momento</b> para ${s.tree?'plantarlo':'sembrarla directamente fuera'} en tu zona.`
+    :s.tree&&!treeFits(s,z)?`Tus inviernos son demasiado fríos para tenerlo fuera. ${st?`En ${MONTHS_L[curM]} es <b class="ok">buen momento</b> para plantar en maceta y resguardar en invierno.`:`En maceta resguardada, mejor plantar ${when(potMonths(s,z))}.`}`
+    :st==='directa'?`En ${MONTHS_L[curM]} <b class="ok">es buen momento</b> para ${s.tree?'plantar':'la siembra directa fuera'} en tu zona.`
     :st==='semillero'?`En ${MONTHS_L[curM]} <b class="ok">toca semillero</b> protegido en tu zona.`
     :(s.tree&&treeWhy(s,z))||`En ${MONTHS_L[curM]} <b>no toca ${sow}</b> en tu zona.${nxTxt}`;
   const bar=ms?`<div class="tmonths" role="img" aria-label="Meses de ${s.tree?'plantación':'siembra'} en tu zona">${MONTHS.map((l,m)=>`<i class="${ms[m]==='directa'?'d':ms[m]?'s':''}${m===curM?' cur':''}">${l[0]}</i>`).join('')}</div>
     <div class="tleg">${ms.includes('semillero')?'<span class="s">Semillero</span>':''}${ms.includes('directa')?`<span class="d">${s.tree?'Plantación':'Siembra directa'}</span>`:''}</div>`:'';
   const ilu=['tomate','pimiento','zanahoria','col','rabano','monstera','sandia'].includes(s.id)?ILUS+s.id+'.webp':'';
   const care=Object.keys(ACTIONS).filter(a=>s.care&&s.care[a]);
-  const rot=rotNext(s.id),rotTxt=rot?`Es ${ROT[rot.f].n}. Cuando la quites, siembra en ese sitio ${ROT[rot.f].why}${rot.now.length?`: ahora en tu zona, ${rot.now.map(id=>SP[id].n.toLowerCase()).join(', ')}`:''}.`:'';
+  const rot=rotNext(s.id),rotTxt=rot?`Es ${ROT[rot.f].n}. Cuando acabe, siembra en ese sitio ${ROT[rot.f].why}${rot.now.length?`: ahora en tu zona, ${rot.now.map(id=>SP[id].n.toLowerCase()).join(', ')}`:''}.`:'';
   const val=k=>k==='rot'?rotTxt:t[k]&&t[k]!=='—'?t[k]:'';
   const lbl=k=>k==='rot'?'Rotación':k==='s'&&s.tree?'Plantación':TIP_LBL[k];
   const secs=TIP_SECS.map(([id,ti,ks,ic])=>{const its=ks.filter(val);if(!its.length)return '';
@@ -1032,7 +1045,10 @@ function tipFind(){
 }
 function tipPick(id){state.tipSel=id;tipQ.value='';tipRes.hidden=true;tipQ.setAttribute('aria-expanded','false');tipQ.blur();renderTips();document.getElementById('tipBody').scrollIntoView({block:'nearest'})}
 
-let tt,tDone;function toast(msg,act,fn,ms){const t=document.getElementById('toast');tDone?.();tDone=null;t.textContent=msg;t.classList.toggle('act',!!act);
+let tt,tDone;function toast(msg,act,fn,ms){const t=document.getElementById('toast');tDone?.();tDone=null;
+  // Con una ventana abierta, el aviso va dentro de ella para que se vea por encima (si no, queda detrás)
+  const top=[...document.querySelectorAll('dialog[open]')].pop();const home=top||document.body;if(t.parentNode!==home)home.append(t);
+  t.textContent=msg;t.classList.toggle('act',!!act);
   if(act){const b=document.createElement('button');b.type='button';b.textContent=act;b.onclick=()=>{clearTimeout(tt);t.hidden=true;tDone=null;fn()};t.append(b)}
   t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{t.hidden=true;tDone?.();tDone=null},ms||2200)}
 
@@ -1051,7 +1067,9 @@ function closeZones(f){zList.hidden=true;zBtn.setAttribute('aria-expanded','fals
 function pickZone(k){closeZones(true);if(k===state.zone)return;state.zone=k;save('hv.zone',k);state.alt=null;save('hv.alt',null);setCp(null);drawZones();drawAlt();renderAll();refreshWx(true);toast('Calendario actualizado para tu zona')}
 // Altitud del huerto
 const altIn=document.getElementById('alt');
-function drawAlt(){const b=ZONES[state.zone];altIn.value=state.alt??'';altIn.placeholder=b.alt;document.getElementById('altHint').textContent=state.alt!=null&&state.alt!==b.alt?`Temperaturas ajustadas: ${state.alt>b.alt?'más frescas':'más templadas'} que en ${b.name.split(' (')[0]} capital (${b.alt} m).`:`Si lo dejas vacío se usa la altitud de ${b.name.split(' (')[0]} capital (${b.alt} m).`}
+// Nombre de la capital: «Pamplona» para «Navarra (Pamplona)», «Cádiz capital» para «Cádiz»
+const capName=b=>(m=>m?m[1]:`${b.name} capital`)(b.name.match(/\(([^)]+)\)/));
+function drawAlt(){const b=ZONES[state.zone];altIn.value=state.alt??'';altIn.placeholder=b.alt;document.getElementById('altHint').textContent=state.alt!=null&&state.alt!==b.alt?`Temperaturas ajustadas: ${state.alt>b.alt?'más frescas':'más templadas'} que en ${capName(b)} (${b.alt} m).`:`Si lo dejas vacío se usa la altitud de ${capName(b)} (${b.alt} m).`}
 altIn.addEventListener('change',()=>{const v=altIn.value.trim();const n=v===''?null:Math.max(0,Math.min(3000,Math.round(+v)));state.alt=isNaN(n)?null:n;save('hv.alt',state.alt);drawAlt();drawZoneBox();renderAll()});
 drawAlt();
 
@@ -1107,9 +1125,9 @@ cpIn.addEventListener('input',async()=>{
   if(v.length<5){cpOpts.hidden=true;cpHint.hidden=true;return}
   if(state.cp?.cp===v)return drawCp();
   try{const d=await cpLoad();const ms=d.c[v];
-    if(!ms){cpHint.hidden=false;cpHint.textContent='No encuentro ese código postal. Revisa los 5 números.';cpOpts.hidden=true;return}
+    if(!ms){cpHint.hidden=false;cpHint.textContent='No se encuentra ese código postal. Revisa las 5 cifras.';cpOpts.hidden=true;return}
     await cpApply(v,ms[0]);cpIn.blur();
-  }catch(e){cpHint.hidden=false;cpHint.textContent='No se pudieron cargar los códigos postales. Inténtalo con conexión.'}
+  }catch(e){cpHint.hidden=false;cpHint.textContent='No se pudieron cargar los códigos postales. Vuelve a intentarlo con conexión.'}
 });
 cpOpts.addEventListener('click',e=>{const b=e.target.closest('[data-cpm]');if(!b||!state.cp)return;zoneOpen=false;cpApply(state.cp.cp,+b.dataset.cpm).then(()=>{zoneOpen=false;drawZoneBox()})});
 drawCp();
@@ -1167,9 +1185,9 @@ document.addEventListener('click',e=>{
   if(a){const p=state.plants.find(x=>x.id===a.dataset.id),k=a.dataset.act;p.log=p.log||{};
     // Se guarda la fecha anterior para poder deshacerlo
     if(p.log[k]!==iso(today)){p.logPrev=p.logPrev||{};p.logPrev[k]=p.log[k]??null}
-    p.log[k]=iso(today);careChanged();toast(`${ACTIONS[k]} anotado: ${p.name}`,'Deshacer',()=>undoCare(p,k),5000);return}
+    p.log[k]=iso(today);careChanged();toast(`Anotado: ${ACT_N[k]} de ${p.name}`,'Deshacer',()=>undoCare(p,k),5000);return}
   const d=e.target.closest('[data-del]');
-  if(d){const p=state.plants.find(x=>x.id===d.dataset.del);state.plants=state.plants.filter(x=>x!==p);save('hv.plants',state.plants);renderPlants();renderRem();toast(`${p.name} quitada`)}
+  if(d){const p=state.plants.find(x=>x.id===d.dataset.del);state.plants=state.plants.filter(x=>x!==p);save('hv.plants',state.plants);renderPlants();renderRem();toast(`Planta quitada: ${p.name}`)}
 });
 
 // Desplegables propios con el mismo estilo que el de la zona (el nativo marca en azul)
@@ -1251,7 +1269,7 @@ document.getElementById('addForm').addEventListener('submit',e=>{
   const sown=document.getElementById('fDate').value||iso(today);
   const p={id:'p'+Date.now(),name,sp:fSp.value,loc:document.getElementById('fLoc').value,sown,log:{}};
   dropExamples();state.plants.push(p);save('hv.plants',state.plants);e.target.reset();document.getElementById('fDate').value=iso(today);refreshSelects();
-  state.plGroup='todos';state.plLoc='todas';renderPlants();renderRem();toast(`${name} añadida`);document.getElementById("addBox").open=false
+  state.plGroup='todos';state.plLoc='todas';renderPlants();renderRem();toast(`Planta añadida: ${name}`);document.getElementById("addBox").open=false
 });
 // ---------- Fotos del huerto ----------
 // Cada huerto del plano tiene las suyas, guardadas con las fotos de las plantas bajo «huerto:<id del huerto>», y se sincronizan igual
@@ -1427,7 +1445,7 @@ harvDlg.addEventListener('click',e=>{
 harvDlg.addEventListener('click',e=>{const b=e.target.closest('[data-hshare]');if(!b)return;
   const f=findHarv(hf.id),x=f.x;if(!x)return;const p=f.p,sp=SP[p?p.sp:x.sp],name=p?p.name:sp?.n||'Cosecha';
   const ph=hfSort(photos['cosecha:'+x.id]||[]),big=ph.find(y=>y.id===hf.big)||ph[0];
-  const img=()=>sharePlant({name,species:sp?.n||'',loc:'Cosecha',sownTxt:`Cosechado el ${fdate(x.d)}`,ageTxt:qtyTxt(x.q,x.u),
+  const img=()=>sharePlant({name,species:sp?.n||'',loc:'Cosecha',sownTxt:`Cosechada el ${fdate(x.d)}`,ageTxt:qtyTxt(x.q,x.u),
     photo:big?{src:big.src,caption:fdate(big.date)}:null,care:x.o?[x.o]:[],deco:sp?decoFor(sp.id):null});
   shareLink(b,'cosecha',name,()=>({data:{name,sp:sp?.id||'',species:sp?.n||'',qty:qtyTxt(x.q,x.u),d:x.d,o:x.o||'',at:iso(today),ilu:!!sp&&ILU_SP.includes(sp.id)},
     fotos:ph.map(y=>({src:y.src,date:y.date}))}),img);
@@ -1517,7 +1535,7 @@ cfm.addEventListener('click',e=>{if(e.target===cfm)cfm.close()});
 function removePlant(p){
   const i=state.plants.indexOf(p);if(i<0)return;
   state.plants.splice(i,1);save('hv.plants',state.plants);if(ficha.open)ficha.close();renderPlants();renderRem();renderCal();
-  toast(`${p.name} quitada`,'Deshacer',()=>{state.plants.splice(Math.min(i,state.plants.length),0,p);save('hv.plants',state.plants);renderPlants();renderRem();renderCal();toast(`${p.name} recuperada`)},6000);
+  toast(`Planta quitada: ${p.name}`,'Deshacer',()=>{state.plants.splice(Math.min(i,state.plants.length),0,p);save('hv.plants',state.plants);renderPlants();renderRem();renderCal();toast(`Planta recuperada: ${p.name}`)},6000);
   // Las fotos se borran cuando ya no se puede deshacer
   tDone=()=>{if(!state.plants.includes(p)){delete photos[p.id];savePhotos()}};
 }
@@ -1536,7 +1554,7 @@ ficha.addEventListener('click',e=>{const b=e.target.closest('#sharePlantBtn');if
   const age=daysSince(p,iso(today));
   const care=Object.keys(ACTIONS).filter(a=>s.care&&s.care[a]&&p.log&&p.log[a]).map(a=>`${ACTIONS[a]} ${relTxt(p.log[a])}`);
   const img=()=>sharePlant({name:p.name,species:s.n,loc:p.loc==='interior'?'Interior':'Exterior',
-    sownTxt:`${s.tree?'Plantada':'Sembrada'} el ${fdate(p.sown)}`,ageTxt:age===0?'hoy':age===1?'1 día':`${age} días`,
+    sownTxt:`${s.tree?'Plantada':'Sembrada'} el ${fdate(p.sown)}`,ageTxt:age===0?'hoy':age===1?'1 día':(age===1?'1 día':`${age} días`),
     photo:big?{src:big.src,caption:`Día ${daysSince(p,big.date)}`}:null,care:care.length?[care.join(' · ')]:[],deco:decoFor(s.id)});
   shareLink(b,'planta',p.name,()=>({data:{name:p.name,sp:s.id,species:s.n,group:GROUPS[s.g],loc:p.loc,sown:p.sown,tree:!!s.tree,at:iso(today),
     care:dues(p).map(x=>({a:x.a,iv:x.iv,last:p.log?.[x.a]||null})),harv:harvTot(p.harv,YEAR)||'',ilu:ILU_SP.includes(s.id)},
@@ -1571,8 +1589,8 @@ zdCp.addEventListener('input',async()=>{
   if(v.length<5){zdRes.hidden=true;zdOpts.hidden=true;return}
   if(state.cp?.cp===v)return zdDraw();
   zdRes.hidden=false;zdRes.classList.remove('err');zdRes.textContent='Buscando…';
-  try{const d=await cpLoad(),ms=d.c[v];if(!ms)return zdDraw('No se encuentra ese código postal. Revisa los 5 números.');
-    await cpApply(v,ms[0]);zdDraw();zdCp.blur()}catch(e){zdDraw('No se pudieron cargar los códigos postales. Se puede intentar con conexión.')}
+  try{const d=await cpLoad(),ms=d.c[v];if(!ms)return zdDraw('No se encuentra ese código postal. Revisa las 5 cifras.');
+    await cpApply(v,ms[0]);zdDraw();zdCp.blur()}catch(e){zdDraw('No se pudieron cargar los códigos postales. Vuelve a intentarlo con conexión.')}
 });
 zdOpts.addEventListener('click',async e=>{const b=e.target.closest('[data-zdm]');if(!b||!state.cp)return;await cpApply(state.cp.cp,+b.dataset.zdm);zoneOpen=false;drawZoneBox();zdDraw()});
 zdOk.addEventListener('click',()=>{zoneOpen=false;drawZoneBox();zDlg.close()});
@@ -1581,4 +1599,10 @@ document.getElementById('zoneBar').addEventListener('click',e=>{if(e.target.clos
 // Se pregunta en cada apertura mientras no haya zona (salvo «Ahora no» en esta sesión)
 setTimeout(()=>{let skip=false;try{skip=!!sessionStorage.getItem('hv.zskip')}catch(e){}if(!state.cp&&!skip&&!document.querySelector('dialog[open]'))openZoneDlg()},600);
 refreshWx();
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshWx()});
+// Si cambia el día con la app abierta o en segundo plano, se recarga para que «hoy» y los avisos sean del día nuevo
+// (solo cuando no hay ninguna ventana ni campo a medio escribir)
+function dayChanged(){const n=new Date();n.setHours(0,0,0,0);if(n.getTime()===today.getTime())return false;
+  if(document.querySelector('dialog[open]')||document.activeElement?.matches?.('input,textarea,select'))return false;
+  location.reload();return true}
+setInterval(()=>{if(document.visibilityState==='visible')dayChanged()},60000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&!dayChanged())refreshWx()});

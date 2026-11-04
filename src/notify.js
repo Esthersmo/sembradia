@@ -88,9 +88,9 @@ function drawBox() {
   const canNotify = 'Notification' in window && 'serviceWorker' in navigator;
   const perm = canNotify ? Notification.permission : 'unsupported';
   let txt, btns = '';
-  if (perm === 'granted' && pushOn) txt = 'Avisos activados: cada mañana te avisaremos de los riegos y cuidados del día, aunque tengas la app cerrada.';
+  if (perm === 'granted' && pushOn) txt = 'Avisos activados: cada mañana llegará un aviso con los riegos y cuidados del día, aunque tengas la app cerrada.';
   else if (perm === 'granted' && cloudOn && !currentUser()) txt = 'Avisos activados mientras usas la app. Para recibirlos también con la app cerrada, entra en tu cuenta con el botón de arriba.';
-  else if (perm === 'granted') txt = 'Avisos activados: te avisaremos de los riegos y cuidados que toquen cada día.';
+  else if (perm === 'granted') txt = 'Avisos activados: cada día llegará un aviso con los riegos y cuidados que toquen.';
   else if (perm === 'denied') txt = 'Los avisos están bloqueados. Puedes permitirlos en los ajustes del navegador para esta página.';
   else if (!canNotify && isIOS() && !standalone()) txt = 'Para recibir avisos en el iPhone, añade la app a tu pantalla de inicio desde el botón Compartir.';
   else if (!canNotify) txt = 'Este navegador no permite avisos.';

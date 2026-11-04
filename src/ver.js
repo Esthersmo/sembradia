@@ -9,7 +9,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '
 const DAY = 864e5, parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
 const fdate = (d, y = true) => parse(d).toLocaleDateString('es-ES', y ? {day: 'numeric', month: 'short', year: 'numeric'} : {day: 'numeric', month: 'short'});
 const days = (a, b) => Math.max(0, Math.round((parse(b) - parse(a)) / DAY));
-const ageTxt = n => n === 0 ? 'Hoy' : n >= 365 ? `${(n / 365).toFixed(1).replace('.0', '').replace('.', ',')} años` : `${n} ${n === 1 ? 'día' : 'días'}`;
+const ageTxt = n => n === 0 ? 'Hoy' : n >= 365 ? (y => `${y} ${y === '1' ? 'año' : 'años'}`)((n / 365).toFixed(1).replace('.0', '').replace('.', ',')) : `${n} ${n === 1 ? 'día' : 'días'}`;
 const ivTxt = d => d >= 365 && d % 365 === 0 ? (d === 365 ? 'cada año' : `cada ${d / 365} años`) : `cada ${d} días`;
 const ACT = {riego: 'Riego', abono: 'Abonado', sustrato: 'Sustrato', poda: 'Poda'};
 // Solo rutas de fotos con la forma que crea la app
@@ -43,7 +43,7 @@ function plant(d, creado) {
   const care = (d.care || []).filter(c => ACT[c.a] && c.iv > 0);
   el.innerHTML = `<section class="vcard vhero"><div class="vhd"><div class="vth">${thumb}</div><div><h1 class="vname">${esc(d.name)}</h1><p class="vsub">${esc(d.species)}${d.group ? ` · ${esc(d.group)}` : ''}</p></div></div>
     <div class="tstats" style="--n:3"><div><span>Ubicación</span><b>${d.loc === 'interior' ? 'Interior' : 'Exterior'}</b></div><div><span>${d.tree ? 'Plantación' : 'Siembra'}</span><b>${fdate(sown, false)}</b></div><div><span>Edad</span><b>${ageTxt(days(sown, at))}</b></div></div></section>
-    ${care.length ? `<section class="vcard"><h2 class="vh">Cuidados</h2><ul class="vcare">${care.map(c => `<li><b>${ACT[c.a]}</b><span>${ivTxt(c.iv)}${isoDay(c.last) ? ` · último el ${fdate(c.last, false)}` : ''}</span></li>`).join('')}</ul>${d.harv ? `<p class="vnote">Cosechado en ${at.slice(0, 4)}: <b>${esc(d.harv)}</b></p>` : ''}</section>` : ''}
+    ${care.length ? `<section class="vcard"><h2 class="vh">Cuidados</h2><ul class="vcare">${care.map(c => `<li><b>${ACT[c.a]}</b><span>${ivTxt(c.iv)}${isoDay(c.last) ? ` · la última vez, el ${fdate(c.last, false)}` : ''}</span></li>`).join('')}</ul>${d.harv ? `<p class="vnote">Cosechado en ${at.slice(0, 4)}: <b>${esc(d.harv)}</b></p>` : ''}</section>` : ''}
     ${gallery(fotos, sown, cap)}
     <p class="vwhen">Compartido el ${fdate(at)}. Es una copia: se ve tal como estaba ese día.</p>`;
   wireGallery(fotos, cap);
