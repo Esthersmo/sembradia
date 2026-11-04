@@ -1279,3 +1279,21 @@ body.ver{padding:0 16px 32px}
   .hoy .btn{padding-block:10px}
 }
 @media(max-width:600px){.hoy-w .tn,.hoy-ej{display:none}}
+
+/* 4 · Portada en escritorio: texto y acuarela juntos y centrados */
+@media(min-width:601px){.hoy{justify-content:center;gap:56px}.hoy-tx{flex:0 1 auto}.hoy-i{width:200px;height:200px;margin-right:0}}
+/* 6 · Tabla de siembra: el mes actual destaca y el resto se atenúa */
+.cal td:not(.now) .cell:not(.no){opacity:.62}
+.cal td.now{background:color-mix(in srgb,var(--carob) 7%,transparent)}
+/* 7 · Para hoy */
+.pgh-hoy{color:var(--danger)}
+.plist-hoy{border-color:var(--danger-bar)}
+/* 8 · Botones de la ficha: más pequeños, sin saltos de línea */
+.pcr .btn{white-space:nowrap}
+@media(max-width:600px){.pcr .btn{padding:6px 10px;font-size:.8rem}}
+/* 9 · Posponer */
+.rbt{display:flex;align-items:center;gap:8px}
+.rsn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--card-line);background:none;display:grid;place-items:center;color:var(--muted);cursor:pointer;padding:0}
+.rsn:hover{background:var(--panel)}
+.rsn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:600px){.rbt{gap:6px}.rbt .rsn,.rbt .rok{width:36px;height:36px}.rem .rrow{gap:10px}}

@@ -590,8 +590,8 @@ function renderCal(){renderHoy();
   const ord={directa:0,semillero:1,maceta:2},srt=(x,y)=>x.st===y.st?x.s.n.localeCompare(y.s.n,'es'):ord[x.st]-ord[y.st];
   const chip=o=>`<button class="chip cn-${o.st==='directa'?'dir':o.st==='maceta'?'pot':'sem'}" type="button" data-sp="${o.s.id}"><span class="cn-n">${o.s.n}</span>${o.st==='semillero'?'<span class="cn-how">en semillero</span>':o.st==='maceta'?'<span class="cn-how">en maceta resguardada</span>':''}${grown.has(o.s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`;
   const cnOpen=state.cnOpen||(state.cnOpen={});
-  const grp=(t,a,cls='',k=t)=>{a.sort((x,y)=>(grown.has(x.s.id)?0:1)-(grown.has(y.s.id)?0:1)||srt(x,y));const all=qm||cnOpen[k]||a.length<=8;
-    return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver ${a.length-8} más`}</button>`:''}</section>`};
+  const grp=(t,a,cls='',k=t)=>{a.sort((x,y)=>(grown.has(x.s.id)?0:1)-(grown.has(y.s.id)?0:1)||srt(x,y));const all=qm||cnOpen[k]||a.length<=4;
+    return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,4)).map(chip).join('')}</div>${a.length>4&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver ${a.length-4} más`}</button>`:''}</section>`};
   const seeds=now.filter(o=>has.has(o.s.id));
   document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
   document.getElementById('calNowN').innerHTML=state.cp?`<span class="cn-zn">En ${esc(state.cp.name)}</span> · <button type="button" class="calzone" data-zopen>Cambiar</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} este mes`:'');
@@ -775,7 +775,7 @@ ${photoSec}
 // Ficha de planta (móvil y, a dos columnas, ordenador): cabecera con foto, datos, cuidados, fotos, cosechas y compañeras plegadas, y Quitar con confirmación
 function renderPlantFichaM(p,s,age,photoSec){
   const d=dues(p),when=l=>l<0?`Hace ${-l} ${-l===1?'día':'días'}`:l===0?'Toca hoy':leftTxt(l);
-  const BTN={riego:'Regada hoy',abono:'Abonada hoy',sustrato:'Sustrato cambiado',poda:'Podada hoy'};
+  const BTN={riego:'Regada hoy',abono:'Abonada hoy',sustrato:'Cambiado hoy',poda:'Podada hoy'};
   const tot=harvTot(p.harv,YEAR),hs=harvSec(p),cs=compSec(p),have=[...REL[p.sp].good].filter(id=>mine(id).length).length;
   const fold=(id,t,sum,body)=>body?`<details class="pf-fold" data-fold="${id}"${state.pfOpen?.[id]?' open':''}><summary>${t}<small>${sum}</small><svg class="tch" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>${body}</details>`:'';
   document.getElementById('fichaIn').innerHTML=`
@@ -903,6 +903,9 @@ function renderPlantsMobile(){
       <div class="pt"><b>${esc(p.name)}</b><small>${SP[p.sp].n} · ${p.loc}</small>${d?`<span class="nx ${c}">${VERB[d.a]} · ${when(d.left)}</span>`:''}</div>
 </div>`};
   let h='';
+  // Arriba, lo que toca ya (atrasado o de hoy), sin tener que recorrer todos los grupos
+  const urg=!q&&sort==='care'?list.filter(p=>{const d=nextDue(p);return d&&d.left<=0}):[];
+  if(urg.length)h+=`<h3 class="pgh pgh-hoy">Para hoy <span class="n">${urg.length}</span></h3><div class="plist plist-hoy">${urg.slice(0,3).map(row).join('')}</div>${urg.length>3?`<button class="cn-more" type="button" data-gorem>Ver los ${urg.length} en Avisos</button>`:''}`;
   for(const g of Object.keys(GROUPS)){const ps=list.filter(p=>SP[p.sp].g===g);if(!ps.length)continue;
     h+=`<h3 class="pgh">${GROUPS[g]} <span class="n">${ps.length}</span></h3><div class="plist">${ps.map(row).join('')}</div>`}
   renderHarvests();
@@ -960,7 +963,7 @@ function renderRem(){
   const lim=(k,rows)=>rows.length<=REM_MAX?rows.join(''):(more[k]?rows:rows.slice(0,REM_MAX)).join('')+`<button class="rmore" data-remmore="${k}" aria-expanded="${!!more[k]}">${more[k]?'Ver menos':`Ver ${rows.length-REM_MAX} más`}</button>`;
   const row=x=>`<div class="rrow">${remIc(x.a)}
     <div class="rt"><b>${esc(x.p.name)}</b><span>${VERB[x.a]} · ${when(x.left)}${x.rain?` · <i class="wxsoon">llovió ${mm(x.rain.rain)}</i>`:x.soon?` · <i class="wxsoon">lluvia ${dayName(x.soon.date)}</i>`:''}</span></div>
-    <button class="rok" data-act="${x.a}" data-id="${esc(x.p.id)}" aria-label="Hecho: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}">${REM_OK}</button></div>`;
+    <div class="rbt">${x.left<=0?`<button class="rsn" data-snz="${x.a}" data-id="${esc(x.p.id)}" aria-label="Posponer a mañana: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}" title="Posponer a mañana"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></button>`:''}<button class="rok" data-act="${x.a}" data-id="${esc(x.p.id)}" aria-label="Hecho: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}">${REM_OK}</button></div></div>`;
   const grp=(k,t,rows)=>rows.length?`<section class="rgrp ${k}"><h3 class="rgh">${t} <span class="n">${rows.length}</span></h3><div class="rlist">${lim(k,rows)}</div></section>`:'';
   const by=k=>all.filter(x=>cls(x.left)===k).map(row);
   const ejN=all.some(x=>x.p.ej)?`<p class="rej">Son avisos de las plantas de ejemplo: cuando añadas las tuyas, saldrán solo las tuyas.</p>`:'';
@@ -1211,6 +1214,12 @@ document.addEventListener('click',e=>{
     dropExamples();state.plants.push(np);save('hv.plants',state.plants);state.plGroup='todos';state.plLoc='todas';renderPlants();renderRem();
     openPlant(np.id);state.editing=true;renderPlantFicha();toast(`Sembrada: ${np.name}. Cámbiale el nombre si quieres.`);return}
   const hv=e.target.closest('[data-harvest]');if(hv){openPlant(hv.dataset.harvest);const sec=document.getElementById('harvSec');sec?.closest('details')?.setAttribute('open','');sec?.scrollIntoView({block:'start'});document.getElementById('hQ')?.focus({preventScroll:true});return}
+  const sz=e.target.closest('[data-snz]');if(sz){const p=state.plants.find(x=>x.id===sz.dataset.id),k=sz.dataset.snz;p.log=p.log||{};
+    const prev=p.log[k],had=k in p.log,pp=p.logPrev&&k in p.logPrev,pv=pp?p.logPrev[k]:undefined;
+    // Vuelve a tocar mañana: la fecha de «última vez» se pone para que el siguiente aviso caiga mañana
+    p.log[k]=iso(addDays(today,1-interval(p,k)));careChanged();
+    toast(`Pospuesto a mañana: ${ACT_N[k]} de ${p.name}`,'Deshacer',()=>{if(had)p.log[k]=prev;else delete p.log[k];if(pp){p.logPrev=p.logPrev||{};p.logPrev[k]=pv}careChanged()},5000);return}
+  if(e.target.closest('[data-gorem]')){document.getElementById('t-rem').click();return}
   const un=e.target.closest('[data-undo]');if(un){undoCare(state.plants.find(x=>x.id===un.dataset.id),un.dataset.undo);return}
   if(a){const p=state.plants.find(x=>x.id===a.dataset.id),k=a.dataset.act;p.log=p.log||{};
     // Se guarda la fecha anterior para poder deshacerlo
