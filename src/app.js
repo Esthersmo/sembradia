@@ -6,7 +6,7 @@ import {initAccount} from './account.js';
 import {cloudOn,currentUser} from './cloud.js';
 import {createLink,sendLink} from './links.js';
 import {initPlan} from './plan.js';
-import {loadWx,fetchWx,isFresh,capital,rainSince,rainSoon,hotNow,coldest,hottest,next as wxNext,sky,FROST_C,HEAT_C} from './weather.js';
+import {loadWx,fetchWx,isFresh,capital,rainSince,rainSoon,rainLite,hotNow,coldest,hottest,next as wxNext,sky,FROST_C,HEAT_C} from './weather.js';
 // Nombre de cultivo dentro de una frase: solo la primera letra en minúscula («coles de Bruselas»)
 const lc1=t=>t?t[0].toLowerCase()+t.slice(1):'';
 const ILUS=import.meta.env.BASE_URL+'ilus/';
@@ -875,7 +875,8 @@ function dues(p){
     if(a==='riego'&&p.loc==='exterior'&&wx){rain=rainSince(wx,iso(last),iso(today));if(rain)last=parse(rain.date)}
     const due=addDays(last,iv),left=Math.round((due-today)/DAY);
     if(a==='riego'&&p.loc==='exterior'&&wx&&left<=1)soon=rainSoon(wx,iso(today));
-    out.push({p,a,iv,last,due,left,rain,soon});
+    const lite=a==='riego'&&p.loc==='exterior'&&wx&&left<=0&&!rain?rainLite(wx,iso(today)):null;
+    out.push({p,a,iv,last,due,left,rain,soon,lite});
   }
   return out;
 }
@@ -962,7 +963,7 @@ function renderRem(){
   const more=state.remMore||(state.remMore={}),REM_MAX=3;
   const lim=(k,rows)=>rows.length<=REM_MAX?rows.join(''):(more[k]?rows:rows.slice(0,REM_MAX)).join('')+`<button class="rmore" data-remmore="${k}" aria-expanded="${!!more[k]}">${more[k]?'Ver menos':`Ver ${rows.length-REM_MAX} más`}</button>`;
   const row=x=>`<div class="rrow">${remIc(x.a)}
-    <div class="rt"><b>${esc(x.p.name)}</b><span>${VERB[x.a]} · ${when(x.left)}${x.rain?` · <i class="wxsoon">llovió ${mm(x.rain.rain)}</i>`:x.soon?` · <i class="wxsoon">lluvia ${dayName(x.soon.date)}</i>`:''}</span></div>
+    <div class="rt"><b>${esc(x.p.name)}</b><span>${VERB[x.a]} · ${when(x.left)}${x.rain?` · <i class="wxsoon">llovió ${mm(x.rain.rain)}</i>`:x.lite?` · <i class="wxsoon">hoy chubascos${x.lite.rain>=.5?` (${mm(Math.max(x.lite.rain,1))})`:''}, mejor espera</i>`:''}${!x.rain&&x.soon?` · <i class="wxsoon">lluvia ${dayName(x.soon.date)}</i>`:''}</span></div>
     <div class="rbt">${x.left<=0?`<button class="rsn" data-snz="${x.a}" data-id="${esc(x.p.id)}" aria-label="Posponer a mañana: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}" title="Posponer a mañana"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></button>`:''}<button class="rok" data-act="${x.a}" data-id="${esc(x.p.id)}" aria-label="Hecho: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}">${REM_OK}</button></div></div>`;
   const grp=(k,t,rows)=>rows.length?`<section class="rgrp ${k}"><h3 class="rgh">${t} <span class="n">${rows.length}</span></h3><div class="rlist">${lim(k,rows)}</div></section>`:'';
   const by=k=>all.filter(x=>cls(x.left)===k).map(row);

@@ -49,6 +49,11 @@ export function rainSince(wx, after, today) {
 export function rainSoon(wx, today) {
   return (wx?.days || []).find(d => d.date > today && d.date <= plus(today, 2) && d.rain >= RAIN_MM) || null;
 }
+// Hoy cae algo de lluvia o hay chubascos, pero menos de lo que cuenta como riego
+export function rainLite(wx, today) {
+  const d = (wx?.days || []).find(x => x.date === today);
+  return d && d.rain < RAIN_MM && (d.rain >= 0.5 || (d.code >= 80 && d.code <= 82)) ? d : null;
+}
 export const hotNow = (wx, today) => (wx?.days || []).some(d => d.date >= today && d.date <= plus(today, 1) && d.max >= HEAT_C);
 export const coldest = (wx, today) => pick(wx, today, 3, (a, b) => a.min < b.min);
 export const hottest = (wx, today) => pick(wx, today, 3, (a, b) => a.max > b.max);
