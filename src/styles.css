@@ -1256,7 +1256,8 @@ body.ver{padding:0 16px 32px}
   .hoy{padding:18px 16px;margin-top:4px}
   .hoy h2{font-size:1.7rem}
   .hoy-i{position:absolute;right:-18px;top:-6px;width:118px;height:118px;opacity:.95}
-  .hoy-d,.hoy h2,.hoy-w{padding-right:80px}
+  .hoy-d,.hoy h2{padding-right:80px}
+  .hoy-w{padding-right:96px}
   .hoy-k span{display:block;line-height:1.25}
   .hoy-k>div{flex:1;min-width:0}
   .hoy .btn{width:100%}
