@@ -569,7 +569,7 @@ function renderCal(){
   const chip=o=>`<button class="chip cn-${o.st==='directa'?'dir':o.st==='maceta'?'pot':'sem'}" type="button" data-sp="${o.s.id}"><span class="cn-n">${o.s.n}</span>${grown.has(o.s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`;
   const grp=(t,a,cls='')=>`<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${a.sort(srt).map(chip).join('')}</div></section>`;
   const seeds=now.filter(o=>has.has(o.s.id));
-  document.getElementById('calNowH').textContent=`Qué sembrar en ${MONTHS_L[cm]}`;
+  document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
   document.getElementById('calNowN').textContent=now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona${cm===curM?' · este mes':''}`:'';
   const offH=off.length?`<section class="cn-grp cn-off"><h4>No tocan en ${MONTHS_L[cm]} <span class="n">${off.length}</span></h4><div class="chips">${off.map(s=>`<button class="chip" type="button" data-sp="${s.id}"><span class="cn-n">${s.n}</span>${grown.has(s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`).join('')}</div></section>`:'';
   document.getElementById('calNow').innerHTML=
