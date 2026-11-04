@@ -68,13 +68,14 @@
         <div class="zdone" id="zoneDoneRow" hidden><button class="btn primary" type="button" id="zoneDone">Listo</button></div>
       </div>
       <div class="panel">
+        <div class="calhead" id="calHead"></div>
         <div class="calbar" id="calBar">
           <label class="plm-q calq"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" id="calQ" placeholder="Buscar cultivo" aria-label="Buscar cultivo" autocomplete="off"></label>
           <div class="calspan" id="calSpan" role="group" aria-label="Qué cultivos ver"><button class="chip" type="button" data-span="year">Todo el año</button><button class="chip" type="button" data-span="mes">Este mes</button></div>
           <button class="chip calseeds" type="button" id="calSeeds" aria-pressed="false">🌱 Con tus semillas</button>
         </div>
         <div class="chips" id="calGroups"></div>
-        <div class="cn-mon"><button class="cn-arr" type="button" id="calPrev" aria-label="Mes anterior">‹</button><div><h3 class="calnow-h" id="calNowH"></h3><small id="calNowN"></small></div><button class="cn-arr" type="button" id="calNext" aria-label="Mes siguiente">›</button></div>
+        <div class="cn-mon calnow-w"><button class="cn-arr" type="button" id="calPrev" aria-label="Mes anterior">‹</button><div><h3 class="calnow-h" id="calNowH"></h3><small id="calNowN"></small></div><button class="cn-arr" type="button" id="calNext" aria-label="Mes siguiente">›</button></div>
         <div class="cal-gsel plm-tools"><label class="plm-q"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" id="calQm" placeholder="Buscar cultivo" aria-label="Buscar cultivo" autocomplete="off"></label><select id="calGroupSel" aria-label="Mostrar cultivos"></select></div>
         <div class="calnow" id="calNow"></div>
         <button class="btn yearbtn" type="button" id="yearBtn" aria-expanded="false">Ver todo el año</button>

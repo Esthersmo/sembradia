@@ -1182,3 +1182,15 @@ body.ver{padding:0 16px 32px}
 .zd-res.err{color:var(--danger-ink,var(--del-ink))!important;font-weight:400}
 .zdlg .btn[disabled]{opacity:.45;cursor:default}
 @media (min-width:601px){.cal-gsel.plm-tools{display:none}}
+
+/* Propuesta: menos elementos en Calendario */
+.calhead{display:none}
+@media (min-width:601px){
+  .calhead{display:block;text-align:center;margin:2px 0 14px}
+  .calhead h2{margin:0;color:var(--carob-text)}
+  .calhead p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+  .cal tr.cmore td{text-align:center;padding:8px}
+  .cal tr.cmore .btn{font-size:.85rem;padding:5px 14px}
+}
+#calNowN .calzone,.calhead .calzone{color:var(--carob-text);text-decoration:underline;text-underline-offset:2px;font-weight:500}
+.cn-more{display:block;margin:10px auto 0;border:0;background:none;font:500 .9rem var(--body);color:var(--carob-text);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
