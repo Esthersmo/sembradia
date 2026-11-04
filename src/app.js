@@ -1238,7 +1238,9 @@ function enhanceSelect(sel){
   ul.addEventListener('keydown',keys);
   if(q){q.addEventListener('input',()=>{act=-1;draw()});q.addEventListener('keydown',keys)}
   // e.target puede haberse sustituido al redibujar el botón: solo cuenta un clic de verdad fuera
-  document.addEventListener('click',e=>{if(!pop.hidden&&e.target.isConnected&&!wrap.contains(e.target))close()});
+  // Cuando el desplegable desaparece (al repintar una ficha), se quita también este aviso para no acumular memoria
+  const outside=e=>{if(!wrap.isConnected){document.removeEventListener('click',outside);return}if(!pop.hidden&&e.target.isConnected&&!wrap.contains(e.target))close()};
+  document.addEventListener('click',outside);
   sel.addEventListener('change',draw);sel._cselDraw=draw;draw();
 }
 function refreshSelects(){document.querySelectorAll('select[data-csel]').forEach(s=>s._cselDraw&&s._cselDraw())}

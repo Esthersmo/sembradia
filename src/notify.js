@@ -28,6 +28,8 @@ export function updateSchedule(items) {
 async function maybeNotify() {
   if (!swReg || !('Notification' in window) || Notification.permission !== 'granted') return;
   if (store.getItem('hv.notified') === todayIso()) return;
+  // Si este dispositivo recibe los avisos del servidor, el de las 9:00 ya llega: no se manda otro al abrir la app
+  if (store.getItem('hv.pushon') === '1') return;
   const items = dueToday(JSON.parse(store.getItem('hv.sched') || '[]'));
   if (!items.length) return;
   store.setItem('hv.notified', todayIso());
@@ -53,6 +55,8 @@ async function savePush(sub) {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Madrid';
   const {error} = await c.from('avisos').upsert({endpoint: sub.endpoint, sub: sub.toJSON(), sched, tz, updated_at: new Date().toISOString()}, {onConflict: 'endpoint'});
   if (error) throw error;
+  // Los demás dispositivos de la misma cuenta se quedan con la misma lista: una tarea hecha aquí deja de avisar allí
+  await c.from('avisos').update({sched}).eq('user_id', currentUser().id).neq('endpoint', sub.endpoint);
 }
 export async function enablePush() {
   if (!canPush() || !currentUser()) { pushOn = false; drawBox(); return; }
@@ -64,19 +68,26 @@ export async function enablePush() {
       sub = await swReg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: b64(publicKey)});
     }
     await savePush(sub);
-    pushOn = true;
-  } catch (e) { console.warn('Avisos del servidor', e); pushOn = false; }
+    pushOn = true; store.setItem('hv.pushon', '1');
+  } catch (e) { console.warn('Avisos del servidor', e); pushOn = false; store.setItem('hv.pushon', '0'); }
   drawBox();
 }
 // Cada vez que cambian las próximas tareas, el servidor se queda con la lista nueva
+// (aunque aquí no estén activados, se actualiza la lista de los otros dispositivos de la cuenta)
 function schedChanged() {
-  if (!pushOn) return;
+  if (!cloudOn || !currentUser()) return;
   clearTimeout(pushTimer);
-  pushTimer = setTimeout(async () => { try { const sub = await swReg.pushManager.getSubscription(); if (sub) await savePush(sub); } catch (e) {} }, 3000);
+  pushTimer = setTimeout(async () => {
+    try {
+      const sub = pushOn ? await swReg.pushManager.getSubscription() : null;
+      if (sub) await savePush(sub);
+      else await (await client()).from('avisos').update({sched: JSON.parse(store.getItem('hv.sched') || '[]')}).eq('user_id', currentUser().id);
+    } catch (e) {}
+  }, 3000);
 }
 async function disablePush() {
   try { const sub = await swReg?.pushManager.getSubscription(); if (sub) { const c = await client(); await c.from('avisos').delete().eq('endpoint', sub.endpoint); } } catch (e) {}
-  pushOn = false;
+  pushOn = false; store.setItem('hv.pushon', '0');
 }
 
 const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
@@ -120,7 +131,7 @@ export function setupNotify() {
   onStoreChange(k => { if (k === 'hv.sched') schedChanged(); });
   // Al entrar en la cuenta se activan los avisos del servidor; al salir se quitan
   let was = null;
-  onCloud((_s, u) => { const id = u?.id || null; if (id === was) return; was = id; if (id) enablePush(); else { pushOn = false; drawBox(); } });
+  onCloud((_s, u) => { const id = u?.id || null; if (id === was) return; was = id; if (id) enablePush(); else { pushOn = false; store.setItem('hv.pushon', '0'); drawBox(); } });
   onBeforeSignOut(disablePush);
   drawBox();
 }

@@ -30,6 +30,7 @@ async function dailyCheck() {
   const db = await kv();
   const t = todayIso();
   if (await get(db, 'hv.notified') === t) return;
+  if (await get(db, 'hv.pushon') === '1') return; // ya avisa el servidor a las 9:00
   const items = JSON.parse((await get(db, 'hv.sched')) || '[]').filter(x => x.date <= t).map(x => x.text);
   if (!items.length) return;
   await put(db, 'hv.notified', t);
