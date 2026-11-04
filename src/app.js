@@ -541,7 +541,7 @@ function when(months){
   return out.length>1?out.slice(0,-1).join(', ')+' y '+out[out.length-1]:out[0];
 }
 const cap1=t=>t[0].toUpperCase()+t.slice(1);
-function renderCal(){
+function renderCal(){renderHoy();
   const z=zoneNow();
   document.getElementById('calLede').innerHTML=`<span>Toca un cultivo para abrir su ficha.</span>`;
   const groups=['todos',...Object.keys(GROUPS)];
@@ -928,6 +928,23 @@ function undoCare(p,k){if(!p||p.log?.[k]!==iso(today))return;
 const REM_IC={riego:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',abono:'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V5h6v3"/>',sustrato:'<path d="M5 10h14l-2 10H7z"/><path d="M4 10h16"/><path d="M12 10V6m0 0c0-2 2-3 4-3 0 2-2 3-4 3zm0 0c0-2-2-3-4-3 0 2 2 3 4 3"/>',poda:'<circle cx="6" cy="7" r="2.5"/><circle cx="6" cy="17" r="2.5"/><path d="M8 8.5L20 17M8 15.5L20 7"/>',semilla:'<path d="M12 21c0-6 0-9 0-11"/><path d="M12 12c-4 0-7-3-7-7 4 0 7 3 7 7zm0-2c0-3 2-6 6-6 0 4-3 6-6 6"/>'};
 const remIc=k=>`<span class="ric"><svg viewBox="0 0 24 24" aria-hidden="true">${REM_IC[k]}</svg></span>`;
 const REM_OK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
+// Portada «Hoy»: saludo, tiempo de hoy, tareas del día y una acuarela de la estación
+const SEASONS=[['invierno','Invierno','col'],['primavera','Primavera','rabano'],['verano','Verano','sandia'],['otono','Otoño','zanahoria']];
+function renderHoy(){
+  const el=document.getElementById('hoy');if(!el)return;
+  const now=new Date(),h=now.getHours(),m=now.getMonth(),[sk,sn,ilu]=SEASONS[m===11||m<2?0:m<5?1:m<8?2:3];
+  const hi=h<6?'Buenas noches':h<14?'Buenos días':h<21?'Buenas tardes':'Buenas noches';
+  const fecha=cap1(now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}));
+  const t=iso(today),d=wx?.days?.find(x=>x.date===t);
+  const mine=state.plants.some(p=>!p.ej),n=state.plants.filter(p=>mine?!p.ej:true).flatMap(dues).filter(x=>x.left<=0).length;
+  const sow=SPECIES.filter(s=>!s.pot&&cellState(s,zoneNow(),curM)).length;
+  el.dataset.season=sk;
+  el.innerHTML=`<div class="hoy-tx"><p class="hoy-d"><span class="hoy-s">${sn}</span>${fecha}</p><h2>${hi}</h2>
+    ${d?`<p class="hoy-w"><span aria-hidden="true">${sky(d.code)[0]}</span> ${sky(d.code)[1]}, <b>${Math.round(d.max)}°</b> / ${Math.round(d.min)}°${state.cp?` en ${esc(state.cp.name)}`:''}</p>`:''}
+    <div class="hoy-k"><div><b>${n}</b><span>${n===1?'tarea hoy':'tareas hoy'}</span></div><div><b>${sow}</b><span>${sow===1?'cultivo':'cultivos'} para sembrar</span></div></div>
+    <button class="btn primary" type="button" data-hoyrem>${n?'Ver avisos de hoy':'Ver avisos'}</button></div>
+    <img class="hoy-i" src="${ILUS}${ilu}.webp" alt="" width="160" height="160">`}
+document.addEventListener('click',e=>{if(e.target.closest('[data-hoyrem]'))document.getElementById('t-rem').click()});
 function renderRem(){
   const all=state.plants.flatMap(dues).filter(x=>x.left<=7).sort((a,b)=>a.left-b.left);
   const done=state.plants.flatMap(p=>Object.keys(ACTIONS).filter(a=>p.log&&p.log[a]===iso(today)).map(a=>({p,a})));
@@ -955,6 +972,7 @@ function renderRem(){
   document.getElementById('remList').innerHTML=h;
   drawWx();
   // Próximas tareas para los avisos diarios
+  renderHoy();
   updateSchedule(state.plants.filter(p=>!p.ej).flatMap(dues).map(x=>({date:iso(x.due),text:`${VERB[x.a]} ${x.p.name}`})));
 }
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
