@@ -1194,3 +1194,16 @@ body.ver{padding:0 16px 32px}
 }
 #calNowN .calzone,.calhead .calzone{color:var(--carob-text);text-decoration:underline;text-underline-offset:2px;font-weight:500}
 .cn-more{display:block;margin:10px auto 0;border:0;background:none;font:500 .9rem var(--body);color:var(--carob-text);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+/* La zona y «Cambiar» siempre en la misma línea; un nombre muy largo se corta con «…» */
+#calNowN{display:flex;justify-content:center;align-items:baseline;gap:4px;white-space:nowrap;min-width:0}
+#calNowN .cn-zn{overflow:hidden;text-overflow:ellipsis;min-width:0}
+#calNowN .calzone{flex:none}
+.cn-mon>div{min-width:0}
+/* Móvil: la línea de la zona ocupa todo el ancho de la tarjeta, debajo del título y las flechas */
+@media (max-width:600px){
+  .cn-mon{display:grid;grid-template-columns:auto 1fr auto;column-gap:8px;row-gap:2px}
+  .cn-mon>div{display:contents}
+  .cn-mon #calPrev{grid-column:1;grid-row:1}.cn-mon #calNext{grid-column:3;grid-row:1}
+  .cn-mon .calnow-h{grid-column:2;grid-row:1;text-align:center}
+  .cn-mon #calNowN{grid-column:1/-1;grid-row:2;padding:0 6px 4px}
+}

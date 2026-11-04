@@ -580,8 +580,8 @@ function renderCal(){
     return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver los ${a.length}`}</button>`:''}</section>`};
   const seeds=now.filter(o=>has.has(o.s.id));
   document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
-  document.getElementById('calNowN').innerHTML=state.cp?`En ${esc(state.cp.name)} · <button type="button" class="calzone" data-zopen>Cambiar zona</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona`:'');
-  const dh=document.getElementById('calHead');if(dh)dh.innerHTML=`<h2>¿Qué sembramos en ${MONTHS_L[curM]}?</h2>${state.cp?`<p>En ${esc(state.cp.name)} (${esc(ZONES[PROV_INE[state.cp.prov]].name.split(' (')[0])}) · <button type="button" class="calzone" data-zopen>Cambiar zona</button></p>`:''}`;
+  document.getElementById('calNowN').innerHTML=state.cp?`<span class="cn-zn">En ${esc(state.cp.name)}</span> · <button type="button" class="calzone" data-zopen>Cambiar</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona`:'');
+  const dh=document.getElementById('calHead');if(dh)dh.innerHTML=`<h2>¿Qué sembramos en ${MONTHS_L[curM]}?</h2>${state.cp?`<p>En ${esc(state.cp.name)} (${esc(ZONES[PROV_INE[state.cp.prov]].name.split(' (')[0])}) · <button type="button" class="calzone" data-zopen>Cambiar</button></p>`:''}`;
   const offH=off.length?`<section class="cn-grp cn-off"><h4>No tocan en ${MONTHS_L[cm]} <span class="n">${off.length}</span></h4><div class="chips">${off.map(s=>`<button class="chip" type="button" data-sp="${s.id}"><span class="cn-n">${s.n}</span>${grown.has(s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`).join('')}</div></section>`:'';
   document.getElementById('calNow').innerHTML=
     (now.length?(seeds.length?grp('Con tus semillas',seeds,' cn-seeds'):'')+
