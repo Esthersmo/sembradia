@@ -8,8 +8,8 @@ const CF = 'https://challenges.cloudflare.com';
 const CSP = [
   "default-src 'self'",
   `script-src 'self' ${CF}`,
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   `img-src 'self' data: blob: https://${SUPA}`,
   `connect-src 'self' data: https://${SUPA} wss://${SUPA} https://api.open-meteo.com`,
   `frame-src ${CF}`,
@@ -33,7 +33,7 @@ export default defineConfig({
       filename: 'sw.js',
       registerType: 'prompt', // la recarga tras una versión nueva la decide la app (ver «Versión nueva» en app.js)
       injectRegister: false,
-      injectManifest: { globPatterns: ['**/*.{js,css,html,png,webp,svg}'] },
+      injectManifest: { globPatterns: ['**/*.{js,css,html,png,webp,svg,woff2}'] },
       manifest: {
         name: 'Sembradía',
         short_name: 'Sembradía',

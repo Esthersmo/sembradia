@@ -2,14 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacidad · Sembradía</title>
 <meta name="description" content="Qué datos guarda Sembradía, para qué y cómo borrarlos.">
 <link rel="icon" href="icons/favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 :root{--bg:#F6F3EE;--card:#FDFBF8;--line:#C9D0B0;--ink:#3D3121;--muted:#76664F;--carob:#725C3A;--green:#5F7651;--viva:#809671}
 @media (prefers-color-scheme:dark){:root{--bg:#1D1913;--card:#27221A;--line:#4A4134;--ink:#EFE8DC;--muted:#BCAF99;--carob:#C9AD86;--green:#B7C9A5;--viva:#A9BC97}}
@@ -32,7 +30,7 @@ a{color:var(--carob)}
 <main>
 <a class="logo" href="./">Sembra<span>día</span></a>
 <h1>Política de privacidad</h1>
-<p class="upd">Última actualización: 19 de octubre de 2026</p>
+<p class="upd">Última actualización: 4 de noviembre de 2026</p>
 
 <section>
 <h2>En pocas palabras</h2>
@@ -49,15 +47,18 @@ a{color:var(--carob)}
 <ul>
 <li><strong>Sin cuenta:</strong> tus plantas, riegos, fotos, zona y preferencias se quedan en el almacenamiento del navegador de tu dispositivo. No nos llegan a nosotros.</li>
 <li><strong>Con cuenta:</strong> tu correo electrónico, y una copia de tu huerto: plantas, tareas anotadas, fotos, provincia, código postal y altitud.</li>
-<li><strong>Enlaces compartidos:</strong> si compartes una planta o un huerto con un enlace, se guarda una copia de lo que se ve en él (nombre, datos, plano y fotos). Cualquiera que tenga el enlace puede verla. Puedes borrar cada enlace desde «Mi cuenta» y, al borrarlo, deja de funcionar.</li>
+<li><strong>Enlaces compartidos:</strong> si compartes una planta, un huerto o tus cosechas con un enlace, se guarda una copia de lo que se ve en él (nombre, datos, plano y fotos). Cualquiera que tenga el enlace puede verla. Puedes borrar cada enlace desde «Mi cuenta» y, al borrarlo, deja de funcionar.</li>
 <li><strong>Si entras con Google:</strong> Google nos da tu correo y tu nombre. No recibimos tu contraseña.</li>
 <li><strong>Si activas los avisos:</strong> la dirección técnica que da tu navegador para recibir notificaciones, y la lista de tareas próximas de tus plantas para poder avisarte en el día.</li>
+<li><strong>El tiempo y la altitud:</strong> para mostrar la previsión y la altitud de tu zona, la app envía a Open-Meteo las coordenadas aproximadas de tu código postal o de tu provincia. No envía tu correo ni nada de tu huerto.</li>
 </ul>
 </section>
 
 <section>
 <h2>Para qué los usamos</h2>
-<p>Solo para que la app funcione: identificarte con un código o con Google, guardar y sincronizar tu huerto entre dispositivos y enviarte los avisos que pidas. La base legal es tu consentimiento al crear la cuenta o activar los avisos, y puedes retirarlo cuando quieras.</p>
+<p>Solo para que la app funcione: identificarte con un código o con Google, guardar y sincronizar tu huerto entre dispositivos y enviarte los avisos que pidas.</p>
+<p>La base legal de la cuenta y de los enlaces compartidos es darte el servicio que pides al crearlos (artículo 6.1.b del RGPD). La de los avisos es tu consentimiento, que retiras cuando quieras desactivándolos.</p>
+<p>Si tienes menos de 14 años, necesitas el permiso de tu madre, padre o tutor para crear una cuenta.</p>
 </section>
 
 <section>
@@ -66,10 +67,12 @@ a{color:var(--carob)}
 <li><strong>Supabase</strong>: base de datos y almacén de fotos, en servidores de la Unión Europea.</li>
 <li><strong>Google (Gmail)</strong>: envía los correos con el código para entrar.</li>
 <li><strong>GitHub Pages</strong>: sirve la página web de la app.</li>
-<li><strong>Google Fonts</strong>: da los tipos de letra de la app.</li>
+<li><strong>Cloudflare Turnstile</strong>: comprueba que quien pide el código para entrar es una persona y no un programa.</li>
+<li><strong>Open-Meteo</strong>: da la previsión del tiempo y la altitud de tu zona.</li>
 <li><strong>Apple, Google o Mozilla</strong>, según tu navegador: hacen llegar las notificaciones.</li>
 </ul>
-<p>Todos tratan los datos solo para prestar ese servicio.</p>
+<p>Todos tratan los datos solo para prestar ese servicio. Algunos son empresas de Estados Unidos: cuando un dato sale de la Unión Europea, lo hace con las garantías que pide el RGPD, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo.</p>
+<p>Los tipos de letra van dentro de la propia app, así que para mostrarlos no se pide nada a ningún otro servicio.</p>
 <p>Los datos viajan cifrados y Supabase los guarda cifrados en sus discos, pero no van cifrados de extremo a extremo: quien administra el proyecto podría verlos. Solo se consultan si hace falta para resolver un problema que tú pidas.</p>
 </section>
 

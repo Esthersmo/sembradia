@@ -1,6 +1,6 @@
 import { precacheAndRoute, createHandlerBoundToURL, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { StaleWhileRevalidate } from 'workbox-strategies';
 
 self.skipWaiting();
 cleanupOutdatedCaches();
@@ -10,9 +10,6 @@ registerRoute(({ request, url }) => request.mode === 'navigate' && url.pathname.
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist: [/privacidad\.html$/, /ver\.html/] }));
 // Códigos postales: se descargan la primera vez que se usan
 registerRoute(({ url }) => url.pathname.endsWith('/cp.json'), new StaleWhileRevalidate({ cacheName: 'cp' }));
-// Tipografías de Google: disponibles sin conexión después de la primera visita
-registerRoute(({ url }) => url.origin === 'https://fonts.googleapis.com', new StaleWhileRevalidate({ cacheName: 'fonts-css' }));
-registerRoute(({ url }) => url.origin === 'https://fonts.gstatic.com', new CacheFirst({ cacheName: 'fonts' }));
 
 // ---- Avisos diarios con la app cerrada (Chrome en Android con la app instalada) ----
 const todayIso = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
