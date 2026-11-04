@@ -926,7 +926,9 @@ function renderRem(){
   const all=state.plants.flatMap(dues).filter(x=>x.left<=7).sort((a,b)=>a.left-b.left);
   const done=state.plants.flatMap(p=>Object.keys(ACTIONS).filter(a=>p.log&&p.log[a]===iso(today)).map(a=>({p,a})));
   const over=all.filter(x=>x.left<0).length,tod=all.filter(x=>x.left===0).length;
-  const b=document.getElementById('remCount');b.hidden=!(over+tod);b.textContent=over+tod;
+  // El globo del menú solo cuenta tus plantas: las de ejemplo no avisan
+  const mineN=all.filter(x=>x.left<=0&&!x.p.ej).length;
+  const b=document.getElementById('remCount');b.hidden=!mineN;b.textContent=mineN;
   document.getElementById('remN').textContent=over+tod?`${over+tod} ${over+tod===1?'pendiente':'pendientes'}`:'';
   const cls=l=>l<0?'over':l===0?'today':'soon';
   const when=l=>l<0?`<em>hace ${-l} ${-l===1?'día':'días'}</em>`:l===0?'<em>toca hoy</em>':leftTxt(l).toLowerCase();
@@ -938,7 +940,8 @@ function renderRem(){
     <button class="rok" data-act="${x.a}" data-id="${esc(x.p.id)}" aria-label="Hecho: ${VERB[x.a].toLowerCase()} ${esc(x.p.name)}">${REM_OK}</button></div>`;
   const grp=(k,t,rows)=>rows.length?`<section class="rgrp ${k}"><h3 class="rgh">${t} <span class="n">${rows.length}</span></h3><div class="rlist">${lim(k,rows)}</div></section>`:'';
   const by=k=>all.filter(x=>cls(x.left)===k).map(row);
-  let h=grp('over','Atrasados',by('over'))+grp('today','Hoy',by('today'))+grp('soon','Próximos días',by('soon'))||'<p class="rempty">No hay tareas pendientes esta semana.</p>';
+  const ejN=all.some(x=>x.p.ej)?`<p class="rej">Son avisos de las plantas de ejemplo: cuando añadas las tuyas, saldrán solo las tuyas.</p>`:'';
+  let h=ejN+grp('over','Atrasados',by('over'))+grp('today','Hoy',by('today'))+grp('soon','Próximos días',by('soon'))||'<p class="rempty">No hay tareas pendientes esta semana.</p>';
   const sow=seedRows().filter(r=>r.now);
   if(sow.length)h+=`<section class="rgrp seeds"><h3 class="rgh">Para sembrar este mes <span class="n">${sow.length}</span></h3><div class="rlist"><div class="rrow">${remIc('semilla')}<div class="rt"><b>${sow.map(r=>r.s.n).join(', ')}</b><span>De tus semillas</span></div><button class="btn" type="button" id="goSeeds">Ver</button></div></div></section>`;
   // Lo hecho hoy va aparte: en el ordenador, en la columna de la derecha bajo el tiempo
@@ -946,7 +949,7 @@ function renderRem(){
   document.getElementById('remList').innerHTML=h;
   drawWx();
   // Próximas tareas para los avisos diarios
-  updateSchedule(state.plants.flatMap(dues).map(x=>({date:iso(x.due),text:`${VERB[x.a]} ${x.p.name}`})));
+  updateSchedule(state.plants.filter(p=>!p.ej).flatMap(dues).map(x=>({date:iso(x.due),text:`${VERB[x.a]} ${x.p.name}`})));
 }
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 // Solo se pintan como imagen las fotos guardadas por la app (JPEG/PNG/WebP en base64)
@@ -1208,7 +1211,7 @@ function enhanceSelect(sel){
   let act=0,vis=[];const opts=()=>[...sel.options];
   const match=(o,k)=>{if(!k)return true;const n=cselNorm(o.text);return n.startsWith(k)||n.split(/[\s(]+/).some(w=>w.startsWith(k))};
   const draw=()=>{const os=opts(),k=cselNorm(q?.value.trim());btn.disabled=sel.disabled;btn.innerHTML=`<span>${sel.selectedOptions[0]?.text||''}</span><span aria-hidden="true">▾</span>`;
-    vis=os.map((o,i)=>i).filter(i=>match(os[i],k));if(!vis.includes(act))act=vis[0]??-1;
+    vis=os.map((o,i)=>i).filter(i=>!os[i].disabled&&match(os[i],k));if(!vis.includes(act))act=vis[0]??-1;
     let h='',last=null;vis.forEach(i=>{const o=os[i],g=o.parentNode.tagName==='OPTGROUP'?o.parentNode.label:null;if(g&&g!==last){h+=`<li class="grp" role="presentation">${g}</li>`;last=g}
       h+=`<li class="opt${i===act?' act':''}" role="option" id="${id}-${i}" data-i="${i}" aria-selected="${o.selected}">${esc(o.text)}</li>`});
     ul.innerHTML=h||'<li class="none" role="presentation">Sin resultados</li>';ul.setAttribute('aria-activedescendant',`${id}-${act}`);ul.querySelector('.act')?.scrollIntoView({block:'nearest'})};
@@ -1231,7 +1234,7 @@ function enhanceSelect(sel){
 }
 function refreshSelects(){document.querySelectorAll('select[data-csel]').forEach(s=>s._cselDraw&&s._cselDraw())}
 const fSp=document.getElementById('fSp');
-fSp.innerHTML=Object.entries(GROUPS).map(([g,l])=>`<optgroup label="${l}">${SPECIES.filter(s=>s.g===g).map(s=>`<option value="${s.id}">${s.n}</option>`).join('')}</optgroup>`).join('');
+fSp.innerHTML='<option value="" disabled selected>Elige la especie</option>'+Object.entries(GROUPS).map(([g,l])=>`<optgroup label="${l}">${SPECIES.filter(s=>s.g===g).map(s=>`<option value="${s.id}">${s.n}</option>`).join('')}</optgroup>`).join('');
 fSp.addEventListener('change',()=>{document.getElementById('fLoc').value=INDOOR.includes(fSp.value)?'interior':'exterior';refreshSelects()});
 enhanceSelect(fSp);enhanceSelect(document.getElementById('fLoc'));enhanceSelect(calGroupSel);calGroupSel.parentNode.querySelector('.csel-btn').setAttribute('aria-label','Mostrar cultivos');
 // Mis semillas: especie (sin árboles) y año de caducidad del sobre
@@ -1265,6 +1268,7 @@ renderTips();
 document.getElementById('fDate').value=iso(today);
 document.getElementById('addForm').addEventListener('submit',e=>{
   e.preventDefault();
+  if(!fSp.value){toast('Elige la especie de la planta');fSp.parentNode.querySelector('.csel-btn')?.focus();return}
   const name=document.getElementById('fName').value.trim()||SP[fSp.value].n;
   const sown=document.getElementById('fDate').value||iso(today);
   const p={id:'p'+Date.now(),name,sp:fSp.value,loc:document.getElementById('fLoc').value,sown,log:{}};
