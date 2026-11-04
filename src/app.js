@@ -925,7 +925,7 @@ function undoCare(p,k){if(!p||p.log?.[k]!==iso(today))return;
   if(prev)p.log[k]=prev;else delete p.log[k];if(p.logPrev){delete p.logPrev[k];if(!Object.keys(p.logPrev).length)delete p.logPrev}
   careChanged();toast(`Deshecho: ${ACT_N[k]} de ${p.name}`)}
 // Iconos de cada tarea en Avisos
-const REM_IC={riego:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',abono:'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V5h6v3"/>',sustrato:'<path d="M5 10h14l-2 10H7z"/><path d="M4 10h16"/><path d="M12 10V6m0 0c0-2 2-3 4-3 0 2-2 3-4 3zm0 0c0-2-2-3-4-3 0 2 2 3 4 3"/>',poda:'<circle cx="6" cy="7" r="2.5"/><circle cx="6" cy="17" r="2.5"/><path d="M8 8.5L20 17M8 15.5L20 7"/>',semilla:'<path d="M12 21c0-6 0-9 0-11"/><path d="M12 12c-4 0-7-3-7-7 4 0 7 3 7 7zm0-2c0-3 2-6 6-6 0 4-3 6-6 6"/>'};
+const REM_IC={riego:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',abono:'<path d="M9 3.5h6l-1 3c3 1.8 4.5 4.6 4.5 8A4.5 4.5 0 0 1 14 19H10a4.5 4.5 0 0 1-4.5-4.5c0-3.4 1.5-6.2 4.5-8z"/><path d="M12 17v-4m0 0c0-1.8 1.4-3 3-3 0 1.8-1.2 3-3 3zm0 0c0-1.4-1-2.4-2.4-2.4 0 1.4 1 2.4 2.4 2.4"/>',sustrato:'<path d="M5 10h14l-2 10H7z"/><path d="M4 10h16"/><path d="M12 10V6m0 0c0-2 2-3 4-3 0 2-2 3-4 3zm0 0c0-2-2-3-4-3 0 2 2 3 4 3"/>',poda:'<circle cx="6" cy="7" r="2.5"/><circle cx="6" cy="17" r="2.5"/><path d="M8 8.5L20 17M8 15.5L20 7"/>',semilla:'<path d="M12 21c0-6 0-9 0-11"/><path d="M12 12c-4 0-7-3-7-7 4 0 7 3 7 7zm0-2c0-3 2-6 6-6 0 4-3 6-6 6"/>'};
 const remIc=k=>`<span class="ric"><svg viewBox="0 0 24 24" aria-hidden="true">${REM_IC[k]}</svg></span>`;
 const REM_OK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
 // Portada «Hoy»: saludo, tiempo de hoy, tareas del día y una acuarela de la estación
@@ -936,13 +936,13 @@ function renderHoy(){
   const hi=h<6?'Buenas noches':h<14?'Buenos días':h<21?'Buenas tardes':'Buenas noches';
   const fecha=cap1(now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}));
   const t=iso(today),d=wx?.days?.find(x=>x.date===t);
-  const mine=state.plants.some(p=>!p.ej),n=state.plants.filter(p=>mine?!p.ej:true).flatMap(dues).filter(x=>x.left<=0).length;
-  const sow=SPECIES.filter(s=>!s.pot&&cellState(s,zoneNow(),curM)).length;
+  const mine=state.plants.some(p=>!p.ej),dl=state.plants.filter(p=>mine?!p.ej:true).flatMap(dues),n=dl.filter(x=>x.left===0).length,over=dl.filter(x=>x.left<0).length;
+    const sow=SPECIES.filter(s=>!s.pot&&cellState(s,zoneNow(),curM)).length;
   el.dataset.season=sk;
   el.innerHTML=`<div class="hoy-tx"><p class="hoy-d"><span class="hoy-s">${sn}</span>${fecha}</p><h2>${hi}</h2>
-    ${d?`<p class="hoy-w"><span aria-hidden="true">${sky(d.code)[0]}</span> ${sky(d.code)[1]}, <b>${Math.round(d.max)}°</b> / ${Math.round(d.min)}°${state.cp?` en ${esc(state.cp.name)}`:''}</p>`:''}
-    <div class="hoy-k"><div><b>${n}</b><span>${n===1?'tarea hoy':'tareas hoy'}</span></div><div><b>${sow}</b><span>${sow===1?'cultivo':'cultivos'} para sembrar</span></div></div>
-    <button class="btn primary" type="button" data-hoyrem>${n?'Ver avisos de hoy':'Ver avisos'}</button></div>
+    ${d?`<p class="hoy-w"><span aria-hidden="true">${sky(d.code)[0]}</span> ${sky(d.code)[1]}, <b>${Math.round(d.max)}°</b> / ${Math.round(d.min)}°${state.cp?`<span class="tn"> en ${esc(state.cp.name)}</span>`:''}</p>`:''}
+    <div class="hoy-k"><div><b>${n}</b><span>${n===1?'tarea hoy':'tareas hoy'}</span></div>${over?`<div class="over"><b>${over}</b><span>${over===1?'atrasada':'atrasadas'}</span></div>`:''}<div><b>${sow}</b><span>para sembrar</span></div></div>${mine?'':'<p class="hoy-ej">Con las plantas de ejemplo</p>'}
+    <button class="btn primary" type="button" data-hoyrem>Ver avisos</button></div>
     <img class="hoy-i" src="${ILUS}${ilu}.webp" alt="" width="160" height="160">`}
 document.addEventListener('click',e=>{if(e.target.closest('[data-hoyrem]'))document.getElementById('t-rem').click()});
 function renderRem(){
