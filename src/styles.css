@@ -923,8 +923,8 @@ html.plan-noscroll header,html.plan-noscroll .fab{display:none}
   .cn-grp.cn-seeds h4{color:var(--ok)}
   .cn-grp .chip{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--card)}
   .cn-grp .chip i{display:none}
-  .cn-grp .chip.cn-sem{border-style:dashed;border-color:var(--seed-ink)}
-  .cn-grp .chip.cn-pot{border-style:dotted;border-width:2px;border-color:var(--pot-cell)}
+  .cn-how{flex-basis:100%;font-size:.72rem;color:var(--muted)}
+  [data-theme="dark"] .cn-grp .chip{border-color:var(--card-line)}
   .cn-mine{font-size:.72rem;color:var(--ok);white-space:nowrap}
   .cn-lbl{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:.8rem}
   .cn-lbl i{width:18px!important;height:11px!important;border-radius:6px!important;background:none!important;border:1px solid var(--line)}

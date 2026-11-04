@@ -564,7 +564,7 @@ function renderCal(){
   const LIM=8,open=state.calOpen||(state.calOpen={}),mine=x=>has.has(x.id)||grown.has(x.id)?0:1;
   const cnt={};for(const x of rows)cnt[x.g]=(cnt[x.g]||0)+1;let shownG=0;
   const sorted=[...rows].sort((a,b)=>gk.indexOf(a.g)-gk.indexOf(b.g)||(dk&&!q?mine(a)-mine(b):0)||a.n.localeCompare(b.n,'es'));
-  const moreRow=g=>`<tr class="cmore"><td colspan="13"><button class="btn" type="button" data-calmore="${g}">${open[g]?'Ver menos':`Ver los ${cnt[g]}`}</button></td></tr>`;
+  const moreRow=g=>`<tr class="cmore"><td colspan="13"><button class="btn" type="button" data-calmore="${g}">${open[g]?'Ver menos':`Ver ${cnt[g]-8} más`}</button></td></tr>`;
   for(const s of sorted){
     if(s.g!==lastG){if(lastG&&dk&&!q&&cnt[lastG]>LIM)h+=moreRow(lastG);shownG=0}
     if(state.calGroup==='todos'&&s.g!==lastG){const n=dk&&nNow(s.g);h+=`<tr class="grp"><th colspan="13" scope="colgroup">${s.g==='alimentario'?'Alimentarios':GROUPS[s.g]}${n?`<span class="gn"> · ${n} ${n===1?'se puede':'se pueden'} sembrar en ${MONTHS_L[curM]}</span>`:''}</th></tr>`}
@@ -585,21 +585,20 @@ function renderCal(){
   const now=list.filter(hit).map(s=>({s,st:cellState(s,z,cm)})).filter(o=>o.st);
   // Con búsqueda, los cultivos que coinciden pero no tocan este mes también salen, aparte
   const off=qm?list.filter(s=>hit(s)&&!cellState(s,z,cm)).sort((a,b)=>a.n.localeCompare(b.n,'es')):[];
-  const kinds=new Set(now.map(o=>o.st));
   const ord={directa:0,semillero:1,maceta:2},srt=(x,y)=>x.st===y.st?x.s.n.localeCompare(y.s.n,'es'):ord[x.st]-ord[y.st];
-  const chip=o=>`<button class="chip cn-${o.st==='directa'?'dir':o.st==='maceta'?'pot':'sem'}" type="button" data-sp="${o.s.id}"><span class="cn-n">${o.s.n}</span>${grown.has(o.s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`;
+  const chip=o=>`<button class="chip cn-${o.st==='directa'?'dir':o.st==='maceta'?'pot':'sem'}" type="button" data-sp="${o.s.id}"><span class="cn-n">${o.s.n}</span>${o.st==='semillero'?'<span class="cn-how">en semillero</span>':o.st==='maceta'?'<span class="cn-how">en maceta resguardada</span>':''}${grown.has(o.s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`;
   const cnOpen=state.cnOpen||(state.cnOpen={});
   const grp=(t,a,cls='',k=t)=>{a.sort((x,y)=>(grown.has(x.s.id)?0:1)-(grown.has(y.s.id)?0:1)||srt(x,y));const all=qm||cnOpen[k]||a.length<=8;
-    return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver los ${a.length}`}</button>`:''}</section>`};
+    return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver ${a.length-8} más`}</button>`:''}</section>`};
   const seeds=now.filter(o=>has.has(o.s.id));
   document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
-  document.getElementById('calNowN').innerHTML=state.cp?`<span class="cn-zn">En ${esc(state.cp.name)}</span> · <button type="button" class="calzone" data-zopen>Cambiar</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona`:'');
+  document.getElementById('calNowN').innerHTML=state.cp?`<span class="cn-zn">En ${esc(state.cp.name)}</span> · <button type="button" class="calzone" data-zopen>Cambiar</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} este mes`:'');
   const dh=document.getElementById('calHead');if(dh)dh.innerHTML=`<h2>¿Qué sembramos en ${MONTHS_L[curM]}?</h2>${state.cp?`<p>En ${esc(state.cp.name)} (${esc(ZONES[PROV_INE[state.cp.prov]].name.split(' (')[0])}) · <button type="button" class="calzone" data-zopen>Cambiar</button></p>`:''}`;
   const offH=off.length?`<section class="cn-grp cn-off"><h4>No tocan en ${MONTHS_L[cm]} <span class="n">${off.length}</span></h4><div class="chips">${off.map(s=>`<button class="chip" type="button" data-sp="${s.id}"><span class="cn-n">${s.n}</span>${grown.has(s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`).join('')}</div></section>`:'';
   document.getElementById('calNow').innerHTML=
     (now.length?(seeds.length?grp('Con tus semillas',seeds,' cn-seeds'):'')+
       Object.keys(GROUPS).map(g=>{const a=now.filter(o=>o.s.g===g&&!has.has(o.s.id));return a.length?grp(GROUPS[g],a):''}).join('')+
-      `<p class="cn-lbl">${kinds.has('directa')?'<span><i class="cn-dir"></i>Siembra directa o plantación</span>':''}${kinds.has('semillero')?'<span><i class="cn-sem"></i>Semillero protegido</span>':''}${kinds.has('maceta')?'<span><i class="cn-pot"></i>En maceta resguardada</span>':''}</p>`
+      ''
     :qm&&!off.length?`<p class="cn-none">No hay cultivos con ese nombre.</p>`:qm?'':`<p class="cn-none">En ${MONTHS_L[cm]} no toca sembrar nada de este grupo en tu zona.</p>`)+offH;
   const f=document.getElementById('ficha');if(f.open&&state.mode==='crop')renderFicha();
 }
