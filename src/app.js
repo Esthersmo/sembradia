@@ -547,8 +547,15 @@ function renderCal(){
   // Con «Todos», un título de grupo antes de cada tipo de cultivo
   const gk=Object.keys(GROUPS);let lastG=null;
   const nNow=g=>rows.filter(s=>s.g===g&&cellState(s,z,curM)).length;
-  for(const s of [...rows].sort((a,b)=>gk.indexOf(a.g)-gk.indexOf(b.g))){
-    if(state.calGroup==='todos'&&s.g!==lastG){lastG=s.g;const n=dk&&nNow(s.g);h+=`<tr class="grp"><th colspan="13" scope="colgroup">${s.g==='alimentario'?'Alimentarios':GROUPS[s.g]}${n?`<span class="gn"> · ${n} ${n===1?'se puede':'se pueden'} sembrar en ${MONTHS_L[curM]}</span>`:''}</th></tr>`}
+  // En el ordenador, cada grupo muestra 8 cultivos (primero tus semillas y lo que ya tienes) y «Ver los N»
+  const LIM=8,open=state.calOpen||(state.calOpen={}),mine=x=>has.has(x.id)||grown.has(x.id)?0:1;
+  const cnt={};for(const x of rows)cnt[x.g]=(cnt[x.g]||0)+1;let shownG=0;
+  const sorted=[...rows].sort((a,b)=>gk.indexOf(a.g)-gk.indexOf(b.g)||(dk&&!q?mine(a)-mine(b):0)||a.n.localeCompare(b.n,'es'));
+  const moreRow=g=>`<tr class="cmore"><td colspan="13"><button class="btn" type="button" data-calmore="${g}">${open[g]?'Ver menos':`Ver los ${cnt[g]}`}</button></td></tr>`;
+  for(const s of sorted){
+    if(s.g!==lastG){if(lastG&&dk&&!q&&cnt[lastG]>LIM)h+=moreRow(lastG);shownG=0}
+    if(state.calGroup==='todos'&&s.g!==lastG){const n=dk&&nNow(s.g);h+=`<tr class="grp"><th colspan="13" scope="colgroup">${s.g==='alimentario'?'Alimentarios':GROUPS[s.g]}${n?`<span class="gn"> · ${n} ${n===1?'se puede':'se pueden'} sembrar en ${MONTHS_L[curM]}</span>`:''}</th></tr>`}
+    lastG=s.g;if(dk&&!q&&!open[s.g]&&++shownG>LIM)continue;
     const mk=dk&&(has.has(s.id)||grown.has(s.id))?`<span class="cmk">${[has.has(s.id)?'🌱 semillas':'',grown.has(s.id)?'en tu huerto':''].filter(Boolean).join(' · ')}</span>`:'';
     h+=`<tr class="crop${state.sel===s.id?' sel':''}" data-sp="${s.id}"><th class="name" scope="row">${nm(s.n)}${mk}</th>`;
     for(let m=0;m<12;m++){const st=cellState(s,z,m);const luz=st&&!s.tree&&z.sun[m]<s.sun?' luz':'';
@@ -556,6 +563,7 @@ function renderCal(){
       h+=`<td class="${nowCls(m).trim()}"><div class="cell ${st}${luz}" title="${s.n}, ${MONTHS_L[m]}: ${tip}${luz?' (pocas horas de sol)':''}"></div></td>`}
     h+='</tr>';
   }
+  if(lastG&&dk&&!q&&cnt[lastG]>LIM)h+=moreRow(lastG);
   if(!rows.length)h+=`<tr class="cempty"><td colspan="13">${q?'No hay cultivos con ese nombre.':state.calSeeds?'No tienes semillas de estos cultivos para sembrar ahora.':'No hay cultivos con estos filtros.'}</td></tr>`;
   document.getElementById('cal').innerHTML=h+'</tbody>';
   // Móvil: lo que se puede sembrar o plantar en el mes elegido (con flechas), antes de la tabla del año
@@ -567,10 +575,13 @@ function renderCal(){
   const kinds=new Set(now.map(o=>o.st));
   const ord={directa:0,semillero:1,maceta:2},srt=(x,y)=>x.st===y.st?x.s.n.localeCompare(y.s.n,'es'):ord[x.st]-ord[y.st];
   const chip=o=>`<button class="chip cn-${o.st==='directa'?'dir':o.st==='maceta'?'pot':'sem'}" type="button" data-sp="${o.s.id}"><span class="cn-n">${o.s.n}</span>${grown.has(o.s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`;
-  const grp=(t,a,cls='')=>`<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${a.sort(srt).map(chip).join('')}</div></section>`;
+  const cnOpen=state.cnOpen||(state.cnOpen={});
+  const grp=(t,a,cls='',k=t)=>{a.sort((x,y)=>(grown.has(x.s.id)?0:1)-(grown.has(y.s.id)?0:1)||srt(x,y));const all=qm||cnOpen[k]||a.length<=8;
+    return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver los ${a.length}`}</button>`:''}</section>`};
   const seeds=now.filter(o=>has.has(o.s.id));
   document.getElementById('calNowH').textContent=`Qué sembrar en ${MONTHS_L[cm]}`;
-  document.getElementById('calNowN').textContent=now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona${cm===curM?' · este mes':''}`:'';
+  document.getElementById('calNowN').innerHTML=state.cp?`En ${esc(state.cp.name)} · <button type="button" class="calzone" data-zopen>Cambiar zona</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona`:'');
+  const dh=document.getElementById('calHead');if(dh)dh.innerHTML=`<h2>Qué sembrar en ${MONTHS_L[curM]}</h2>${state.cp?`<p>En ${esc(state.cp.name)} (${esc(ZONES[PROV_INE[state.cp.prov]].name.split(' (')[0])}) · <button type="button" class="calzone" data-zopen>Cambiar zona</button></p>`:''}`;
   const offH=off.length?`<section class="cn-grp cn-off"><h4>No tocan en ${MONTHS_L[cm]} <span class="n">${off.length}</span></h4><div class="chips">${off.map(s=>`<button class="chip" type="button" data-sp="${s.id}"><span class="cn-n">${s.n}</span>${grown.has(s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`).join('')}</div></section>`:'';
   document.getElementById('calNow').innerHTML=
     (now.length?(seeds.length?grp('Con tus semillas',seeds,' cn-seeds'):'')+
@@ -1060,7 +1071,7 @@ function drawZoneBox(){
   const zt=c?`${c.name} (${ZONES[PROV_INE[c.prov]].name.split(' (')[0]})${state.alt!=null?` · ${state.alt} m`:''}`:'';
   if(c)document.getElementById('zoneSumTxt').textContent=zt;
   // Arriba del calendario, siempre a la vista: la zona y «Cambiar», o el aviso para ponerla
-  const bar=document.getElementById('zoneBar');bar.hidden=!document.getElementById('zoneBox').closest('dialog');
+  const bar=document.getElementById('zoneBar');bar.hidden=!!c||!document.getElementById('zoneBox').closest('dialog');
   bar.classList.toggle('none',!c);
   bar.innerHTML=`<span class="zb-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>`
     +(c?`<span class="zb-t"><small>Tu zona</small><b>${esc(c.name)}</b><small>${esc(ZONES[PROV_INE[c.prov]].name.split(' (')[0])}${state.alt!=null?` · ${state.alt} m de altitud`:''}</small></span><button class="btn" type="button" data-zopen>Cambiar</button>`
@@ -1131,6 +1142,10 @@ document.getElementById('calNow').addEventListener('click',e=>{const b=e.target.
 for(const[id,d]of[['calPrev',11],['calNext',1]])document.getElementById(id).addEventListener('click',()=>{state.calM=((state.calM??curM)+d)%12;renderCal()});
 document.getElementById('calQ').addEventListener('input',renderCal);
 document.getElementById('calQm').addEventListener('input',renderCal);
+document.getElementById('p-cal').addEventListener('click',e=>{
+  const m=e.target.closest('[data-cnmore]');if(m){state.cnOpen[m.dataset.cnmore]=!state.cnOpen[m.dataset.cnmore];renderCal();return}
+  const d=e.target.closest('[data-calmore]');if(d){state.calOpen[d.dataset.calmore]=!state.calOpen[d.dataset.calmore];renderCal();return}
+  if(e.target.closest('.calnow-w [data-zopen],#calHead [data-zopen]'))openZoneDlg()});
 document.getElementById('calSpan').addEventListener('click',e=>{const b=e.target.closest('[data-span]');if(!b)return;state.calSpan=b.dataset.span;save('hv.calspan',state.calSpan);renderCal()});
 document.getElementById('calSeeds').addEventListener('click',()=>{state.calSeeds=!state.calSeeds;renderCal()});
 MOBILE.addEventListener('change',renderCal);
