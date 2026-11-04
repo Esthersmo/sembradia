@@ -442,6 +442,7 @@ form.add label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color
 .wxd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;font-size:.85rem;font-variant-numeric:tabular-nums}
 .wxd.now{background:var(--panel);outline:1px solid var(--panel-line)}
 .wxd .wn{color:var(--muted);font-weight:700;text-transform:capitalize;font-size:.8rem}
+.wxd .wl{display:none}
 .wxd .wi{font-size:1.45rem;line-height:1.2}
 .wxd .wt b{color:var(--ink)} .wxd .wt{color:var(--muted)}
 .wxd .wr{color:var(--ok);font-size:.78rem;font-weight:700;min-height:1em}
@@ -1051,7 +1052,15 @@ html.plan-noscroll header,html.plan-noscroll .fab{display:none}
   #p-rem #remDone{grid-column:2;grid-row:3;margin-top:14px}
   #p-rem #wx[hidden]+#remList+#remDone{grid-row:2;margin-top:0}
   #p-rem .avisos{grid-column:1/-1}
-  #p-rem .wxdays{grid-template-columns:repeat(4,1fr)}
+  /* El tiempo de la semana en una columna: un día por fila */
+  #p-rem .wxdays{grid-template-columns:1fr;gap:0;text-align:left}
+  #p-rem .wxd{display:grid;grid-template-columns:1fr 32px 74px 52px;align-items:center;gap:8px;padding:7px 10px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none}
+  #p-rem .wxd:last-child{border-bottom:0}
+  #p-rem .wxd.now{border-radius:10px;border-bottom-color:transparent}
+  #p-rem .wxd .wn{font-size:.9rem;text-transform:none}
+  #p-rem .wxd .ws{display:none} #p-rem .wxd .wl{display:inline}
+  #p-rem .wxd .wi{font-size:1.25rem;text-align:center}
+  #p-rem .wxd .wt{text-align:right} #p-rem .wxd .wr{text-align:right;font-size:.82rem}
   #p-rem .wxa{margin:0}
 }
 /* Calendario en el ordenador: buscador y filtros sobre la tabla, cuántos se pueden sembrar este mes y marcas de tus semillas y plantas */
