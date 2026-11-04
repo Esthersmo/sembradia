@@ -64,17 +64,39 @@ function mergePlant(l, r) {
   const harv = [...new Map([...(r.harv || []), ...(l.harv || [])].map(h => [h.id, h])).values()];
   return {...r, ...l, log, ...(harv.length ? {harv} : {})};
 }
+const hasZone = z => !!z?.cp;
+// Huertos del plano en formato lista (antes había uno solo)
+const gardens = v => v && Array.isArray(v.list) ? v.list : v ? [{id: 'h1', name: 'Mi huerto', w: v.w || 8, h: v.h || 6, beds: v.beds || []}] : [];
+// Primera vez en un dispositivo con «Juntar»: los huertos de la nube y, además, los dibujados aquí (con otro id si coincide)
+function joinPlano(lp, rp, locPlants) {
+  const rl = gardens(rp), ll = gardens(lp);
+  if (!rl.length) return lp || null;
+  if (!ll.length) return rp;
+  const out = rl.map(g => ({...g})), first = ll[0]?.id;
+  for (const g of ll) {
+    const mine = Object.values(locPlants).filter(p => p.pos && (p.pos.h || first) === g.id);
+    if (!g.beds?.length && !mine.length) continue;
+    const twin = out.find(x => x.id === g.id);
+    if (twin && same(twin, g)) continue;
+    let ng = g;
+    if (twin) { ng = {...g, id: 'h' + Date.now().toString(36) + out.length}; for (const p of mine) p.pos = {...p.pos, h: ng.id}; }
+    out.push(ng);
+  }
+  return {cur: rp?.cur || out[0].id, list: out};
+}
 export function merge(base, loc, rem) {
   const first = !base; base = base || empty();
+  // El plano va primero: al juntar huertos puede cambiar el huerto de alguna planta de aquí
+  const plano = first ? joinPlano(loc.plano, rem.plano, loc.plants) : null;
   return {
     plants: mergeMap(base.plants, loc.plants, rem.plants, mergePlant),
     photos: mergeMap(base.photos, loc.photos, rem.photos),
     seeds: mergeMap(base.seeds || {}, loc.seeds || {}, rem.seeds || {}),
     cosechas: mergeMap(base.cosechas || {}, loc.cosechas || {}, rem.cosechas || {}),
-    // Al entrar por primera vez en un dispositivo manda la zona guardada en la nube
-    zona: first ? (rem.zona || loc.zona) : (same(loc.zona, base.zona) ? rem.zona : loc.zona) || loc.zona,
-    // El plano se guarda entero: si cambió en los dos sitios, gana el de aquí
-    plano: first ? (rem.plano || loc.plano) : (same(loc.plano, base.plano) ? rem.plano : loc.plano) || loc.plano || null,
+    // Al entrar por primera vez en un dispositivo manda la zona guardada en la nube, salvo que la cuenta aún no tenga código postal
+    zona: first ? (hasZone(rem.zona) || !hasZone(loc.zona) ? rem.zona || loc.zona : loc.zona) : (same(loc.zona, base.zona) ? rem.zona : loc.zona) || loc.zona,
+    // El plano se guarda entero: si cambió en los dos sitios, gana el de aquí. La primera vez se juntan los huertos de los dos sitios
+    plano: first ? plano : (same(loc.plano, base.plano) ? rem.plano : loc.plano) || loc.plano || null,
   };
 }
 
@@ -106,7 +128,7 @@ async function syncOnce() {
   let loc = local.doc;
   if (!base && askMerge && Object.keys(loc.plants).length && Object.keys(rem.plants).length) {
     firstChoice = firstChoice || await askMerge(Object.keys(loc.plants).length, Object.keys(rem.plants).length);
-    if (firstChoice === 'cuenta') loc = {...empty(), zona: rem.zona || loc.zona};
+    if (firstChoice === 'cuenta') loc = {...empty(), zona: hasZone(rem.zona) ? rem.zona : loc.zona};
   }
   const m = merge(base, loc, rem);
   const srcs = {...local.srcs};

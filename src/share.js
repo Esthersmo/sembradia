@@ -83,7 +83,7 @@ export async function sharePlant(d) {
   c.fillStyle = C.muted; c.font = '400 30px "DM Sans"';
   for (const t of d.care.slice(0, 1)) y = wrap(c, t, px, y, pw, 40, 2);
   footer(c);
-  return send(cv, `sembradia-${slug(d.name)}.png`, d.name, `${d.name} (${d.species.toLowerCase()}) en mi huerto · Sembradía`);
+  return send(cv, `sembradia-${slug(d.name)}.png`, d.name, d.text || `${d.name} (${d.species[0].toLowerCase()+d.species.slice(1)}) en mi huerto · Sembradía`);
 }
 
 // Un huerto: su foto (si la hay) y su plano. d: {title, zone, n, photo:{src, date}|null, plan:{w, h, beds, plants}}

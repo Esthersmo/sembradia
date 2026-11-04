@@ -31,7 +31,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',
-      registerType: 'autoUpdate',
+      registerType: 'prompt', // la recarga tras una versión nueva la decide la app (ver «Versión nueva» en app.js)
       injectRegister: false,
       injectManifest: { globPatterns: ['**/*.{js,css,html,png,webp,svg}'] },
       manifest: {

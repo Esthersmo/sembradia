@@ -34,6 +34,8 @@ export async function initStore() {
 // Avisos de cambios (los usa la sincronización con la nube)
 const listeners = new Set();
 export const onStoreChange = fn => listeners.add(fn);
+const errFns = new Set();
+export const onStoreError = fn => errFns.add(fn);
 
 export const store = {
   getItem(k) {
@@ -44,7 +46,10 @@ export const store = {
     v = String(v);
     if (db) {
       cache.set(k, v);
-      db.transaction(STORE, 'readwrite').objectStore(STORE).put(v, k);
+      const tx = db.transaction(STORE, 'readwrite');
+      tx.objectStore(STORE).put(v, k);
+      // Si el navegador se queda sin espacio, la escritura se cancela: se avisa para que la app lo diga
+      tx.onabort = () => errFns.forEach(fn => fn(k, tx.error));
     } else localStorage.setItem(k, v);
     listeners.forEach(fn => fn(k));
   },

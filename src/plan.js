@@ -213,7 +213,14 @@ export function initPlan(ctx) {
     ctx.onRemoveGarden?.(gone.id, pl.id);
     save(); ctx.savePlants(); drawGardens(); draw(); editG(false); ctx.toast(`${gone.name} quitado. Sus plantas siguen en Mis plantas, sin colocar, y sus fotos pasan a ${pl.name}.`);
   });
-  const setSize = () => { const c = v => Math.max(1, Math.min(60, Math.round((+String(v).replace(',', '.') || 1) * 10) / 10)); pl.w = c(wIn.value); pl.h = c(hIn.value); drawSize(); save(); draw(); };
+  const setSize = () => { const c = v => Math.max(1, Math.min(60, Math.round((+String(v).replace(',', '.') || 1) * 10) / 10)); pl.w = c(wIn.value); pl.h = c(hIn.value);
+    // Al hacer el huerto más pequeño, lo que quedaba fuera se mete dentro del borde para que no desaparezca
+    for (const b of pl.beds) { b.w = Math.min(b.w, pl.w); if (b.k !== 'pot') b.h = Math.min(b.h, pl.h); else b.w = Math.min(b.w, pl.h);
+      b.x = Math.max(0, Math.min(b.x, pl.w - b.w)); b.y = Math.max(0, Math.min(b.y, pl.h - (b.k === 'pot' ? b.w : b.h))); }
+    let moved = false;
+    for (const p of placed()) { const x = Math.max(.2, Math.min(p.pos.x, pl.w - .2)), y = Math.max(.2, Math.min(p.pos.y, pl.h - .2)); if (x !== p.pos.x || y !== p.pos.y) { p.pos.x = x; p.pos.y = y; moved = true; } }
+    if (moved) ctx.savePlants();
+    drawSize(); save(); draw(); };
   wIn.addEventListener('change', setSize); hIn.addEventListener('change', setSize);
   // Con el teclado abierto: la pantalla completa se ajusta a la parte que queda visible
   // y la casilla en la que se escribe se lleva al centro, para verla bien

@@ -62,7 +62,7 @@ function statusLine() {
 function linksHtml() {
   if (linksErr) return '<p class="tip">No se han podido cargar. Vuelve a intentarlo con conexión.</p>';
   if (!links) return '<p class="tip">Cargando…</p>';
-  if (!links.length) return '<p class="tip">Aún no has compartido nada con un enlace. Usa «Compartir» en la ficha de una planta o en las fotos de un huerto.</p>';
+  if (!links.length) return '<p class="tip">Aún no has compartido nada con un enlace. Usa «Compartir» en la ficha de una planta, en las fotos de un huerto o en tus cosechas.</p>';
   const f = d => new Date(d).toLocaleDateString('es-ES', {day: 'numeric', month: 'short', year: 'numeric'});
   return `<p class="tip">Quien tenga el enlace ve lo que había al compartirlo. Si lo borras, deja de funcionar.</p><ul class="lklist">${links.map(l => `<li><div><b>${esc(l.titulo)}</b><small>${({huerto: 'Huerto', cosecha: 'Cosecha', cosechas: 'Cosechas del año'})[l.tipo] || 'Planta'} · ${f(l.creado)}</small></div>
     <button class="btn" type="button" data-lkcopy="${esc(l.id)}">Copiar</button><button class="btn warn" type="button" data-lkdel="${esc(l.id)}">Borrar</button></li>`).join('')}</ul>`;
@@ -93,7 +93,7 @@ export function initAccount({refresh, toast}) {
         <details class="aclinks" id="acctLinks"${linksOpen ? ' open' : ''}><summary>Enlaces compartidos${links ? ` <small>${links.length}</small>` : ''}</summary>${linksHtml()}</details>
         <p class="tip"><a href="privacidad.html" target="_blank" rel="noopener">Política de privacidad</a></p>
         <details class="danger"><summary>Borrar mi cuenta</summary>
-          <p class="tip">Se borran de la nube tu huerto y tus fotos, y no se puede deshacer. Lo que hay en este dispositivo se queda.</p>
+          <p class="tip">Se borran de la nube tu huerto, tus fotos, tus enlaces compartidos y tu correo, y no se puede deshacer. Lo que hay en este dispositivo se queda.</p>
           <button class="btn warn" type="button" id="acctDel">Borrar mi cuenta para siempre</button></details>`;
     } else if (step === 'email') {
       h += `<p>Entra con tu correo para guardar tu huerto en la nube y tenerlo en todos tus dispositivos. Si es la primera vez, la cuenta se crea sola.</p>

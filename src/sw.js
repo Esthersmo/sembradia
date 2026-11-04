@@ -5,6 +5,8 @@ import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 self.skipWaiting();
 cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
+// Los enlaces compartidos (ver.html?id=…) se abren desde la copia guardada: sin conexión sale «No hay conexión» y no el error del navegador
+registerRoute(({ request, url }) => request.mode === 'navigate' && url.pathname.endsWith('/ver.html'), createHandlerBoundToURL('ver.html'));
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist: [/privacidad\.html$/, /ver\.html/] }));
 // Códigos postales: se descargan la primera vez que se usan
 registerRoute(({ url }) => url.pathname.endsWith('/cp.json'), new StaleWhileRevalidate({ cacheName: 'cp' }));
