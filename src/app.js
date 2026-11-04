@@ -579,14 +579,9 @@ function renderCal(){
   const grp=(t,a,cls='',k=t)=>{a.sort((x,y)=>(grown.has(x.s.id)?0:1)-(grown.has(y.s.id)?0:1)||srt(x,y));const all=qm||cnOpen[k]||a.length<=8;
     return `<section class="cn-grp${cls}"><h4>${t} <span class="n">${a.length}</span></h4><div class="chips">${(all?a:a.slice(0,8)).map(chip).join('')}</div>${a.length>8&&!qm?`<button class="cn-more" type="button" data-cnmore="${esc(k)}">${cnOpen[k]?'Ver menos':`Ver los ${a.length}`}</button>`:''}</section>`};
   const seeds=now.filter(o=>has.has(o.s.id));
-<<<<<<< HEAD
-  document.getElementById('calNowH').textContent=`Qué sembrar en ${MONTHS_L[cm]}`;
+  document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
   document.getElementById('calNowN').innerHTML=state.cp?`En ${esc(state.cp.name)} · <button type="button" class="calzone" data-zopen>Cambiar zona</button>`:(now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona`:'');
   const dh=document.getElementById('calHead');if(dh)dh.innerHTML=`<h2>¿Qué sembramos en ${MONTHS_L[curM]}?</h2>${state.cp?`<p>En ${esc(state.cp.name)} (${esc(ZONES[PROV_INE[state.cp.prov]].name.split(' (')[0])}) · <button type="button" class="calzone" data-zopen>Cambiar zona</button></p>`:''}`;
-=======
-  document.getElementById('calNowH').textContent=`¿Qué sembramos en ${MONTHS_L[cm]}?`;
-  document.getElementById('calNowN').textContent=now.length?`${now.length} ${now.length===1?'cultivo':'cultivos'} en tu zona${cm===curM?' · este mes':''}`:'';
->>>>>>> main
   const offH=off.length?`<section class="cn-grp cn-off"><h4>No tocan en ${MONTHS_L[cm]} <span class="n">${off.length}</span></h4><div class="chips">${off.map(s=>`<button class="chip" type="button" data-sp="${s.id}"><span class="cn-n">${s.n}</span>${grown.has(s.id)?'<span class="cn-mine">🌱 en tu huerto</span>':''}</button>`).join('')}</div></section>`:'';
   document.getElementById('calNow').innerHTML=
     (now.length?(seeds.length?grp('Con tus semillas',seeds,' cn-seeds'):'')+
