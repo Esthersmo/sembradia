@@ -1560,7 +1560,7 @@ async function shareBusy(btn,fn,err='No se pudo crear la imagen'){if(btn.disable
   try{const r=await fn();
     if(r&&r.again){btn._again=r.again;btn._label=t;btn.disabled=false;btn.textContent='Toca para enviar';btn.classList.add('ready');
       setTimeout(()=>{if(btn._again===r.again){btn._again=null;btn.textContent=t;btn.classList.remove('ready')}},60000);return}
-    shareDone(r)}catch(e){toast(navigator.onLine===false?'Sin conexión: el enlace se puede crear cuando vuelva internet':err)}
+    shareDone(r)}catch(e){console.error(e);const why=[e?.code||e?.statusCode,e?.message].filter(Boolean).join(' · ').slice(0,90);toast(navigator.onLine===false?'Sin conexión: el enlace se puede crear cuando vuelva internet':err+(why?` (${why})`:''))}
   btn.disabled=false;btn.textContent=t}
 // Compartir con enlace de solo lectura (copia fija en la nube). Sin sesión se ofrece entrar o mandar la imagen de antes
 function shareLink(btn,tipo,title,snap,imgFn){
