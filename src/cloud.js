@@ -7,7 +7,7 @@ import {store, onStoreChange} from './store.js';
 import {SUPABASE_URL, SUPABASE_KEY} from './cloud-config.js';
 
 export const cloudOn = !!(SUPABASE_URL && SUPABASE_KEY);
-const SYNCED = ['hv.plants', 'hv.photos', 'hv.zone', 'hv.alt', 'hv.cp', 'hv.seeds', 'hv.plan', 'hv.harv'];
+const SYNCED = ['hv.plants', 'hv.photos', 'hv.zone', 'hv.alt', 'hv.cp', 'hv.seeds', 'hv.plan', 'hv.harv', 'hv.past'];
 const BUCKET = 'fotos', AUTH_KEY = 'hv.auth';
 
 let sb = null, user = null, askMerge = null, firstChoice = null, timer = null, running = null, again = false, applying = false, onRefresh = () => {};
@@ -24,7 +24,7 @@ const put = (k, v) => store.setItem(k, JSON.stringify(v));
 // Comparación que no depende del orden de las claves
 const canon = v => Array.isArray(v) ? v.map(canon) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canon(v[k])])) : v;
 const same = (a, b) => JSON.stringify(canon(a)) === JSON.stringify(canon(b));
-const empty = () => ({plants: {}, photos: {}, seeds: {}, cosechas: {}, zona: null, plano: null});
+const empty = () => ({plants: {}, photos: {}, seeds: {}, cosechas: {}, pasadas: {}, zona: null, plano: null});
 // Los límites de la nube (500 fotos, fotos de hasta 600 KB, huerto de hasta 1 MB) se marcan para explicarlos en «Mi cuenta»
 const limite = (e, que) => Object.assign(e instanceof Error ? e : new Error(e?.message || String(e)), {limite: que});
 const esLimiteFoto = e => /row-level security|maximum allowed size|exceeded|mime/i.test(e?.message || '');
@@ -44,7 +44,7 @@ function localDoc() {
   for (const [pid, list] of Object.entries(get('hv.photos', {})))
     // «huerto:<id>» son las fotos de cada huerto del plano («huerto», las de antes) y «cosecha:<id>» las de cada cosecha
     if (ids.has(pid) || pid === 'huerto' || pid.startsWith('huerto:') || pid.startsWith('cosecha:')) for (const x of list || []) { photos[x.id] = {plant: pid, date: x.date}; srcs[x.id] = x.src; }
-  return {doc: {plants: Object.fromEntries(plants.map(p => [p.id, p])), photos, seeds: Object.fromEntries(get('hv.seeds', []).map(x => [x.id, x])), plano: get('hv.plan', null), cosechas: Object.fromEntries(get('hv.harv', []).map(x => [x.id, x])), zona: {zone: get('hv.zone', null), alt: get('hv.alt', null), cp: get('hv.cp', null)}}, srcs};
+  return {doc: {plants: Object.fromEntries(plants.map(p => [p.id, p])), photos, seeds: Object.fromEntries(get('hv.seeds', []).map(x => [x.id, x])), plano: get('hv.plan', null), cosechas: Object.fromEntries(get('hv.harv', []).map(x => [x.id, x])), pasadas: Object.fromEntries(get('hv.past', []).map(x => [x.id, x])), zona: {zone: get('hv.zone', null), alt: get('hv.alt', null), cp: get('hv.cp', null)}}, srcs};
 }
 
 function mergeMap(base, loc, rem, both) {
@@ -93,6 +93,7 @@ export function merge(base, loc, rem) {
     photos: mergeMap(base.photos, loc.photos, rem.photos),
     seeds: mergeMap(base.seeds || {}, loc.seeds || {}, rem.seeds || {}),
     cosechas: mergeMap(base.cosechas || {}, loc.cosechas || {}, rem.cosechas || {}),
+    pasadas: mergeMap(base.pasadas || {}, loc.pasadas || {}, rem.pasadas || {}),
     // Al entrar por primera vez en un dispositivo manda la zona guardada en la nube, salvo que la cuenta aún no tenga código postal
     zona: first ? (hasZone(rem.zona) || !hasZone(loc.zona) ? rem.zona || loc.zona : loc.zona) : (same(loc.zona, base.zona) ? rem.zona : loc.zona) || loc.zona,
     // El plano se guarda entero: si cambió en los dos sitios, gana el de aquí. La primera vez se juntan los huertos de los dos sitios
@@ -111,7 +112,7 @@ function applyLocal(m, srcs) {
   for (const [id, x] of Object.entries(m.photos)) (photos[x.plant] = photos[x.plant] || []).push({id, date: x.date, src: srcs[id]});
   applying = true;
   try {
-    put('hv.plants', plants); put('hv.photos', photos); put('hv.seeds', Object.values(m.seeds || {})); put('hv.harv', Object.values(m.cosechas || {}));
+    put('hv.plants', plants); put('hv.photos', photos); put('hv.seeds', Object.values(m.seeds || {})); put('hv.harv', Object.values(m.cosechas || {})); put('hv.past', Object.values(m.pasadas || {}));
     if (m.plano) put('hv.plan', m.plano);
     if (m.zona) { put('hv.zone', m.zona.zone); put('hv.alt', m.zona.alt); put('hv.cp', m.zona.cp); }
   } finally { applying = false; }

@@ -1297,3 +1297,20 @@ body.ver{padding:0 16px 32px}
 .rsn:hover{background:var(--panel)}
 .rsn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:600px){.rbt{gap:6px}.rbt .rsn,.rbt .rok{width:36px;height:36px}.rem .rrow{gap:10px}}
+
+/* Historial de plantas quitadas */
+.cfm #cfmWhy{width:100%;box-sizing:border-box;margin:0 0 14px;padding:11px 12px;border:1px solid var(--card-line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit}
+.cfm #cfmWhy:focus{outline:2px solid var(--carob);outline-offset:1px}
+.cfm-b.has-alt{flex-direction:column}.cfm-b.has-alt #cfmAlt{order:1}.cfm-b.has-alt #cfmYes{order:2}.cfm-b.has-alt #cfmNo{order:3}
+.pastd{margin:18px 0 6px;background:var(--card);border:1px solid var(--card-line);border-radius:16px;overflow:hidden}
+.pastd>summary{display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer;list-style:none;font:700 .78rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--carob-text)}
+.pastd>summary::-webkit-details-marker{display:none}
+.pastd>summary .n{background:var(--panel);border:1px solid var(--panel-line);border-radius:999px;padding:0 8px;font-size:.72rem;letter-spacing:0}
+.pastd>summary .tch{width:18px;height:18px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:2;transition:transform .2s}
+.pastd[open]>summary .tch{transform:rotate(180deg)}
+.pastd .plist{border:0;border-radius:0;margin:0;border-top:1px solid var(--line);display:block;background:none}
+.prow.past{cursor:default;grid-template-columns:56px minmax(0,1fr) auto}
+.prow.past .nx{display:block;font-size:.82rem;color:var(--muted)}
+.prow.past .nx.ph{color:var(--ok)}.prow.past .nx.why{font-style:italic}
+.pdel{width:32px;height:32px;border-radius:50%;border:0;background:none;color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0}
+.pdel:hover{background:var(--panel)}.pdel svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}

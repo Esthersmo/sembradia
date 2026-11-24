@@ -664,6 +664,8 @@ function openFicha(id,quick,from){
   const f=document.getElementById('ficha');if(!f.open){try{f.showModal()}catch(e){f.setAttribute('open','')}}f.scrollTop=0;
 }
 function daysSince(p,d){return Math.max(0,Math.round((parse(d)-parse(p.sown))/DAY))}
+// «12 may – 24 nov 2026» (con el año de cada fecha si cambia)
+function fshort(a,z){const f=(d,y)=>parse(d).toLocaleDateString('es-ES',y?{day:'numeric',month:'short',year:'numeric'}:{day:'numeric',month:'short'});return a.slice(0,4)===z.slice(0,4)?`${f(a)} – ${f(z,1)}`:`${f(a,1)} – ${f(z,1)}`}
 function fdate(d){return parse(d).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'})}
 // ---------- Cosechas ----------
 const HARV_U={kg:'kg',g:'g',ud:'unidades',manojo:'manojos'};
@@ -910,7 +912,12 @@ function renderPlantsMobile(){
   for(const g of Object.keys(GROUPS)){const ps=list.filter(p=>SP[p.sp].g===g);if(!ps.length)continue;
     h+=`<h3 class="pgh">${GROUPS[g]} <span class="n">${ps.length}</span></h3><div class="plist">${ps.map(row).join('')}</div>`}
   renderHarvests();
-  document.getElementById('plList').innerHTML=h||`<p class="lede" style="text-align:center;margin-inline:auto">${q?'No hay plantas con ese nombre.':'Aún no tienes plantas. Añade la primera con el botón +.'}</p>`;
+  const pl=(state.past||[]).filter(r=>!q||cselNorm(r.name).includes(q)||cselNorm(SP[r.sp]?.n||'').includes(q));
+  const prow=r=>{const sp=SP[r.sp],days=Math.max(0,Math.round((parse(r.gone)-parse(r.sown))/DAY));
+    const th=r.photo&&img(r.photo)?`<span class="pth"><img src="${img(r.photo)}" alt=""></span>`:sp&&ILU_SP.includes(r.sp)?`<span class="pth ilu"><img src="${ILUS+r.sp}.webp" alt=""></span>`:`<span class="pth none" aria-hidden="true">${esc((sp?.n||r.name)[0])}</span>`;
+    return `<div class="prow past">${th}<div class="pt"><b>${esc(r.name)}</b><small>${esc(sp?.n||'')} · ${r.loc||''}</small><span class="nx">${fshort(r.sown,r.gone)} · ${days} ${days===1?'día':'días'}</span>${r.tot?`<span class="nx ph">Cosechó ${esc(r.tot)}</span>`:''}${r.why?`<span class="nx why">${esc(r.why)}</span>`:''}</div><button class="pdel" type="button" data-pastdel="${esc(r.id)}" aria-label="Quitar ${esc(r.name)} del historial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`};
+  const hist=pl.length?`<details class="pastd"${state.pastOpen||q?' open':''}><summary>Plantas que tuviste <span class="n">${pl.length}</span><svg class="tch" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="plist">${pl.map(prow).join('')}</div></details>`:'';
+  document.getElementById('plList').innerHTML=(h||(hist?'':`<p class="lede" style="text-align:center;margin-inline:auto">${q?'No hay plantas con ese nombre.':'Aún no tienes plantas. Añade la primera con el botón +.'}</p>`))+hist;
 }
 function renderPlantsList(){
   const groups=['todos',...Object.keys(GROUPS)];
@@ -1389,7 +1396,7 @@ document.querySelectorAll('.adddlg').forEach(d=>d.addEventListener('click',e=>{i
 try{setPlSub(store.getItem('hv.plsub')||'plantas')}catch(e){setPlSub('plantas')}
 // ---------- Mis cosechas ----------
 // Suma las cosechas anotadas en cada planta y las sueltas (de cultivos que ya no tienes o de años pasados), por años
-let harvXInit=load('hv.harv',[]);
+let harvXInit=load('hv.harv',[]);state.past=load('hv.past',[]);
 // Una fila de cosecha: al tocarla se abre su ficha; un icono si tiene fotos u observaciones
 function harvRow(x,lbl,sub){const ph=(photos['cosecha:'+x.id]||[]).length;
   return `<button type="button" class="hrow" data-hopen="${esc(x.id)}"><span class="hl"><span>${lbl}</span>${sub?`<small>${sub}</small>`:''}</span><strong>${qtyTxt(x.q,x.u)}</strong><span class="hico">${ph?`<svg viewBox="0 0 24 24" aria-label="${ph} ${ph===1?'foto':'fotos'}"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.5-2h4l1.5 2"/></svg>`:''}${x.o?'<svg viewBox="0 0 24 24" aria-label="Con observaciones"><path d="M5 4h14v16H5z"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/></svg>':''}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></button>`}
@@ -1572,11 +1579,14 @@ function shareLink(btn,tipo,title,snap,imgFn){
 // Quitar con confirmación y «Deshacer» (móvil)
 const cfm=document.getElementById('cfmDlg');let cfmYes=null,cfmNo=null;
 // o: {yes, no, onNo} para otros textos (sin «yes», es «Quitar» en rojo)
-function confirmQ(t,txt,yes,o={}){document.getElementById('cfmT').textContent=t;document.getElementById('cfmP').textContent=txt;cfmYes=yes;cfmNo=o.onNo||null;
+let cfmAlt=null;
+function confirmQ(t,txt,yes,o={}){document.getElementById('cfmT').textContent=t;document.getElementById('cfmP').textContent=txt;cfmYes=yes;cfmNo=o.onNo||null;cfmAlt=o.onAlt||null;
+  const al=document.getElementById('cfmAlt'),wy=document.getElementById('cfmWhy');al.hidden=wy.hidden=!o.alt;wy.value='';al.textContent=o.alt||'';cfm.querySelector('.cfm-b').classList.toggle('has-alt',!!o.alt);
   const y=document.getElementById('cfmYes');y.textContent=o.yes||'Quitar';y.classList.toggle('danger',!o.yes||!!o.danger);y.classList.toggle('primary',!!o.yes&&!o.danger);
   document.getElementById('cfmNo').textContent=o.no||'Cancelar';try{cfm.showModal()}catch(e){cfm.setAttribute('open','')}}
 document.getElementById('cfmNo').addEventListener('click',()=>{cfm.close();const f=cfmNo;cfmNo=null;f?.()});
 document.getElementById('cfmYes').addEventListener('click',()=>{cfm.close();const f=cfmYes;cfmYes=null;f?.()});
+document.getElementById('cfmAlt').addEventListener('click',()=>{const w=document.getElementById('cfmWhy').value.trim().slice(0,60);cfm.close();const f=cfmAlt;cfmAlt=null;f?.(w)});
 cfm.addEventListener('click',e=>{if(e.target===cfm)cfm.close()});
 function removePlant(p){
   const i=state.plants.indexOf(p);if(i<0)return;
@@ -1585,8 +1595,31 @@ function removePlant(p){
   // Las fotos se borran cuando ya no se puede deshacer
   tDone=()=>{if(!state.plants.includes(p)){delete photos[p.id];for(const h of p.harv||[])delete photos['cosecha:'+h.id];savePhotos()}};
 }
+// Foto pequeña (240 px) para el historial
+function thumbOf(src){return new Promise((ok,ko)=>{const im=new Image();im.onerror=ko;im.onload=()=>{const k=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.7))};im.src=src})}
+// Quitar una planta dejando rastro: queda una ficha en el historial y sus cosechas siguen contando en «Mis cosechas»
+async function archivePlant(p,why){
+  const i=state.plants.indexOf(p);if(i<0)return;
+  const ph=(photos[p.id]||[]).slice().sort((a,b)=>a.date<b.date?-1:1).pop();let th='';
+  if(ph&&img(ph.src)){try{th=await thumbOf(img(ph.src))}catch(e){}}
+  const j=state.plants.indexOf(p);if(j<0)return;
+  const rec={id:p.id,name:p.name,sp:p.sp,loc:p.loc,sown:p.sown,gone:iso(today),n:(p.harv||[]).length,tot:harvTot(p.harv),...(why?{why}:{}),...(th?{photo:th}:{})};
+  const moved=(p.harv||[]).map(h=>({...h,sp:p.sp}));
+  state.harvX||(state.harvX=harvXInit);
+  state.plants.splice(j,1);state.past=[rec,...(state.past||[])];state.harvX.push(...moved);
+  save('hv.plants',state.plants);save('hv.past',state.past);save('hv.harv',state.harvX);
+  if(ficha.open)ficha.close();renderPlants();renderRem();renderCal();
+  toast(`Guardada en el historial: ${p.name}`,'Deshacer',()=>{state.plants.splice(Math.min(j,state.plants.length),0,p);state.past=state.past.filter(r=>r!==rec);state.harvX=state.harvX.filter(h=>!moved.includes(h));
+    save('hv.plants',state.plants);save('hv.past',state.past);save('hv.harv',state.harvX);renderPlants();renderRem();renderCal();toast(`Planta recuperada: ${p.name}`)},6000);
+  // Las fotos de la planta se borran cuando ya no se puede deshacer; las de sus cosechas se quedan
+  tDone=()=>{if(!state.plants.includes(p)){delete photos[p.id];savePhotos()}};
+}
+document.addEventListener('toggle',e=>{if(e.target.matches?.('.pastd'))state.pastOpen=e.target.open},true);
+document.addEventListener('click',e=>{const d=e.target.closest('[data-pastdel]');if(!d)return;const r=(state.past||[]).find(x=>x.id===d.dataset.pastdel);if(!r)return;
+  confirmQ(`¿Quitar «${r.name}» del historial?`,'Se borra la ficha. Las cosechas que anotaste se quedan en Mis cosechas.',()=>{state.past=state.past.filter(x=>x!==r);save('hv.past',state.past);renderPlants()},{yes:'Quitar'})});
 ficha.addEventListener('click',e=>{if(!e.target.closest('#plantDel'))return;const p=state.plants.find(x=>x.id===state.plantSel);if(!p)return;
-  confirmQ(`¿Quitar «${p.name}»?`,'Se borran también sus fotos y cosechas.',()=>removePlant(p))});
+  p.ej?confirmQ(`¿Quitar «${p.name}»?`,'Se borran también sus fotos y cosechas.',()=>removePlant(p))
+    :confirmQ(`¿Quitar «${p.name}»?`,'Puedes guardarla en el historial (quedan su nombre, las fechas, una foto y lo que cosechaste) o borrarla del todo, con sus fotos y cosechas.',()=>removePlant(p),{yes:'Borrar del todo',danger:1,alt:'Guardar en el historial',onAlt:w=>archivePlant(p,w)})});
 ficha.addEventListener('toggle',e=>{const d=e.target.closest?.('[data-fold]');if(d)(state.pfOpen||(state.pfOpen={}))[d.dataset.fold]=d.open},true);
 document.getElementById('plmQ').addEventListener('input',renderPlants);
 const plmSort=document.getElementById('plmSort');enhanceSelect(plmSort);plmSort.addEventListener('change',()=>{state.plSort=plmSort.value;renderPlants()});
@@ -1609,7 +1642,7 @@ ficha.addEventListener('click',e=>{const b=e.target.closest('#sharePlantBtn');if
 setupNotify();
 // Cuando llegan cambios de la nube (otro dispositivo) se recarga todo desde el almacén
 function reloadFromStore(){
-  photos=load('hv.photos',{});state.plants=load('hv.plants',[]);state.harvX=load('hv.harv',[]);gpMigrate();renderGPhotos();
+  photos=load('hv.photos',{});state.plants=load('hv.plants',[]);state.harvX=load('hv.harv',[]);state.past=load('hv.past',[]);gpMigrate();renderGPhotos();
   state.zone=(z=>OLD_ZONES[z]||(ZONES[z]?z:state.zone))(load('hv.zone',state.zone));state.alt=load('hv.alt',null);state.cp=load('hv.cp',null);state.seeds=load('hv.seeds',[]);
   drawZones();drawAlt();drawCp();drawZoneBox();planUI.reload();if(state.cp&&document.getElementById('zoneDlg').open&&!document.getElementById('zdCp').value)document.getElementById('zoneDlg').close();renderAll();refreshSelects();refreshWx();
   if(ficha.open&&state.mode==='plant'){if(state.plants.some(p=>p.id===state.plantSel))renderPlantFicha();else ficha.close()}
