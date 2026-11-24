@@ -288,7 +288,7 @@ export function initPlan(ctx) {
   // Desde fuera: cuando cambian las plantas o llegan datos de otro dispositivo
   // El huerto que se está viendo, aunque aún no tenga nada dibujado
   const shot = g => { const ps = plants().filter(p => p.pos && gardenOf(p) === g.id && SP[p.sp]);
-    return {name: g.name, w: g.w, h: g.h, n: ps.length, beds: g.beds.map(b => ({k: b.k, name: b.name, x: b.x, y: b.y, w: b.w, h: b.k === 'pot' ? b.w : b.h})),
+    return {name: g.name, w: g.w, h: g.h, n: ps.length, ids: ps.map(p => p.id), beds: g.beds.map(b => ({k: b.k, name: b.name, x: b.x, y: b.y, w: b.w, h: b.k === 'pot' ? b.w : b.h})),
       plants: ps.map(p => ({x: p.pos.x, y: p.pos.y, nm: p.name, sp: SP[p.sp].n, ab: ab(SP[p.sp]), g: GCOL[SP[p.sp].g] || 'ali', tree: !!SP[p.sp].tree, r: SP[p.sp].tree ? canopy(p, g) : 0}))}; };
   return {draw, current: () => shot(pl), reload() { all = load(); pl = current(); drawGardens(); if (sel && !pl.beds.some(b => b.id === sel) && !plants().some(p => p.id === sel)) sel = null; draw(); }};
 }

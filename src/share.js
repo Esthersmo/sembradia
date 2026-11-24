@@ -89,12 +89,28 @@ export async function sharePlant(d) {
 // Un huerto: su foto (si la hay) y su plano. d: {title, zone, n, photo:{src, date}|null, plan:{w, h, beds, plants}}
 export async function shareGardenPlan(d) {
   await fonts();
-  const ph = await img(d.photo?.src), PW = W - 200, phH = ph ? 640 : 0;
+  // Sin fotos del huerto, un collage con las fotos de sus plantas (hasta 4)
+  const col = !d.photo && d.photos?.length ? await Promise.all(d.photos.slice(0, 4).map(async f => ({im: await img(f.src), n: f.n}))) : [];
+  const ph = await img(d.photo?.src), PW = W - 200, phH = ph || col.length ? 640 : 0;
   const planH = Math.min(760, PW * d.plan.h / d.plan.w);
-  const tY = ph ? 100 + phH + 95 : 180, planY = tY + 120;
+  const tY = phH ? 100 + phH + 95 : 180, planY = tY + 120;
   const HH = Math.max(H, planY + planH + 220);
   const cv = document.createElement('canvas'); cv.width = W; cv.height = HH; const c = cv.getContext('2d');
   frame(c, HH);
+  if (col.length) {
+    const g = 12, hw = (PW - g) / 2, hh = (phH - g) / 2, n = col.length;
+    const cells = n === 1 ? [[0, 0, PW, phH]] : n === 2 ? [[0, 0, hw, phH], [hw + g, 0, hw, phH]] : n === 3 ? [[0, 0, hw, phH], [hw + g, 0, hw, hh], [hw + g, hh + g, hw, hh]]
+      : [[0, 0, hw, hh], [hw + g, 0, hw, hh], [0, hh + g, hw, hh], [hw + g, hh + g, hw, hh]];
+    col.forEach((f, i) => {
+      const [x, y, w, h] = cells[i]; if (!f.im) return;
+      cover(c, f.im, 100 + x, 100 + y, w, h, 24);
+      if (f.n) {
+        c.font = '500 26px "DM Sans"'; const t = f.n.length > 22 ? f.n.slice(0, 21) + '…' : f.n, tw = c.measureText(t).width + 36;
+        c.fillStyle = 'rgba(253,251,248,.92)'; rr(c, 100 + x + 16, 100 + y + h - 62, tw, 46, 23); c.fill();
+        c.fillStyle = C.ink; c.textAlign = 'left'; c.fillText(t, 100 + x + 34, 100 + y + h - 30);
+      }
+    });
+  }
   if (ph) {
     cover(c, ph, 100, 100, PW, phH, 30);
     c.font = '500 30px "DM Sans"'; const t = d.photo.date, tw = c.measureText(t).width + 44;

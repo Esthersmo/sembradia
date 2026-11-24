@@ -1358,10 +1358,14 @@ document.getElementById('gPhotoList').addEventListener('click',e=>{
 });
 // Compartir el huerto elegido: la foto que se está viendo (si hay) y su plano
 document.getElementById('gShare').addEventListener('click',e=>{
-  const g=planUI.current(),zone=state.cp?.name||ZONES[state.zone]?.name.split(' (')[0]||'';
+  const {ids=[],...plan}=planUI.current(),zone=state.cp?.name||ZONES[state.zone]?.name.split(' (')[0]||'';
   const list=(photos[gpKey()]||[]).slice().sort((a,b)=>a.date<b.date?1:-1),big=list.find(x=>x.id===state.gpBig)||list[0];
-  const img=()=>shareGardenPlan({title:g.name,zone,n:g.n,plan:g,photo:big?{src:big.src,date:fdate(big.date)}:null});
-  shareLink(e.currentTarget,'huerto',g.name,()=>({data:{name:g.name,zone,at:iso(today),plan:g},fotos:list.slice().reverse().map(x=>({src:x.src,date:x.date}))}),img);
+  // Sin fotos del huerto: la última foto de cada planta que hay en él, la más reciente primero
+  const pf=list.length?[]:ids.map(id=>{const p=state.plants.find(x=>x.id===id),f=(photos[id]||[]).slice().sort((a,b)=>a.date<b.date?1:-1)[0];return p&&f&&img(f.src)?{src:f.src,date:f.date,n:p.name}:null}).filter(Boolean).sort((a,b)=>a.date<b.date?1:-1);
+  const im=()=>shareGardenPlan({title:plan.name,zone,n:plan.n,plan,photo:big?{src:big.src,date:fdate(big.date)}:null,photos:pf});
+  // En el enlace la foto grande es la última: la principal del huerto va al final
+  const fl=big?[...list.filter(x=>x!==big).reverse(),big]:pf.slice(0,12).reverse();
+  shareLink(e.currentTarget,'huerto',plan.name,()=>({data:{name:plan.name,zone,at:iso(today),plan},fotos:fl.map(x=>({src:x.src,date:x.date,...(x.n?{n:x.n}:{})}))}),im);
 });
 // «Cambiar foto»: la foto que se está viendo se sustituye por otra, con la fecha de la nueva
 document.getElementById('gPhotoList').addEventListener('change',async e=>{

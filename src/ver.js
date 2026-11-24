@@ -51,7 +51,7 @@ function plant(d, creado) {
 
 function garden(d, creado) {
   const at = isoDay(d.at) ? d.at : creado.slice(0, 10), g = d.plan || {}, fotos = d.fotos || [];
-  const cap = f => isoDay(f.date) ? fdate(f.date) : '';
+  const cap = f => [typeof f.n === 'string' ? f.n.slice(0, 40) : '', isoDay(f.date) ? fdate(f.date) : ''].filter(Boolean).join(' · ');
   const ps = Array.isArray(g.plants) ? g.plants : [];
   const okPlan = g.w > 0 && g.h > 0 && g.w <= 200 && g.h <= 200 && Array.isArray(g.beds);
   el.innerHTML = `<section class="vcard vhero"><h1 class="vname">${esc(d.name)}</h1>
